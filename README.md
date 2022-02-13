@@ -29,6 +29,8 @@ start using the package.
 TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. 
 
+![movie3](https://user-images.githubusercontent.com/60490869/153766304-9e7daff5-c9dc-4418-9bd0-43c6335ba82d.gif)
+
 ```dart
 WebButton.textScroll(
   'Text Scroll',
