@@ -48,6 +48,15 @@ class WebButton extends StatefulWidget {
   })  : _buttonType = WebButtonList.textColorChange,
         super(key: key);
 
+  WebButton.raiseText(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.optionalFields,
+    this.animationDuration,
+  })  : _buttonType = WebButtonList.raiseText,
+        super(key: key);
+
   final WebButtonList _buttonType;
 
   @override
@@ -61,6 +70,7 @@ class _WebButtonState extends State<WebButton>
   late Animation<double> _textScrollOpacityAnimation;
   late Animation<Color?> _backgroundColorAnimation;
   late Animation<Color?> _textColorAnimation;
+  late Animation<double> _raiseTextAnimation;
   @override
   void initState() {
     /// Animation Controller
@@ -90,6 +100,8 @@ class _WebButtonState extends State<WebButton>
             begin: widget.optionalFields.textColor ?? Colors.white,
             end: widget.textAnimatedColor ?? Colors.white70)
         .animate(curvedAnimation);
+    _raiseTextAnimation =
+        Tween<double>(begin: 0.0, end: -4).animate(curvedAnimation);
 
     /// Sequence Animations
     _textScrollAnimation = TweenSequence(<TweenSequenceItem<double>>[
@@ -159,6 +171,7 @@ class _WebButtonState extends State<WebButton>
     hovered ? _controller.forward() : _controller.reverse();
   }
 
+  /// Based on the constructor used, return the associated button.
   Widget getButton() {
     switch (widget._buttonType) {
       case WebButtonList.simple:
@@ -169,11 +182,14 @@ class _WebButtonState extends State<WebButton>
         return getBackgroundColorChangeButton();
       case WebButtonList.textColorChange:
         return getTextColorChangeButton();
+      case WebButtonList.raiseText:
+        return getRaiseTextButton();
       default:
         return const SizedBox();
     }
   }
 
+  /// Button Types
   getSimpleButton() => Container(
         width: widget.optionalFields.buttonWidth ?? double.infinity,
         height: widget.optionalFields.buttonHeight!,
@@ -265,6 +281,30 @@ class _WebButtonState extends State<WebButton>
               ),
             )),
       );
+  getRaiseTextButton() => Container(
+        width: widget.optionalFields.buttonWidth ?? double.infinity,
+        height: widget.optionalFields.buttonHeight,
+        decoration: widget.optionalFields.eliminateDecoration!
+            ? null
+            : standardBoxDecoration(),
+        child: Align(
+          alignment: Alignment.center,
+          child: AnimatedBuilder(
+              animation: _raiseTextAnimation,
+              builder: (context, child) => Transform.translate(
+                    offset: Offset(0.0, _raiseTextAnimation.value),
+                    child: Material(
+                      type: MaterialType.transparency,
+                      textStyle: standardTextStyle(),
+                      child: Text(
+                        widget.text,
+                      ),
+                    ),
+                  )),
+        ),
+      );
+
+  /// Default decorations used to eliminate repeated code.
   standardBoxDecoration() => BoxDecoration(
         color: widget.optionalFields.eliminateDecoration!
             ? Colors.transparent
@@ -299,7 +339,6 @@ class _WebButtonState extends State<WebButton>
         fontFamily: widget.optionalFields.fontFamily ?? '',
         fontSize: widget.optionalFields.fontSize ?? 16,
       );
-
   standardBoxShadow() => widget.optionalFields.boxShadowColor != null
       ? [
           BoxShadow(
