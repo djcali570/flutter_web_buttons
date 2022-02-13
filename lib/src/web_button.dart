@@ -9,6 +9,7 @@ class WebButton extends StatefulWidget {
   final WebButtonOptionalFields optionalFields;
   Duration? animationDuration;
   Color? backgroundAnimatedColor;
+  Color? textAnimatedColor;
 
   WebButton.simple(
     this.text, {
@@ -37,6 +38,16 @@ class WebButton extends StatefulWidget {
   })  : _buttonType = WebButtonList.backgroundColorChange,
         super(key: key);
 
+  WebButton.textColorChange(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.optionalFields,
+    this.textAnimatedColor,
+    this.animationDuration,
+  })  : _buttonType = WebButtonList.textColorChange,
+        super(key: key);
+
   final WebButtonList _buttonType;
 
   @override
@@ -49,6 +60,7 @@ class _WebButtonState extends State<WebButton>
   late Animation<double> _textScrollAnimation;
   late Animation<double> _textScrollOpacityAnimation;
   late Animation<Color?> _backgroundColorAnimation;
+  late Animation<Color?> _textColorAnimation;
   @override
   void initState() {
     /// Animation Controller
@@ -72,6 +84,11 @@ class _WebButtonState extends State<WebButton>
     _backgroundColorAnimation = ColorTween(
       begin: widget.optionalFields.buttonBackgroundColor ?? Colors.pink,
       end: widget.backgroundAnimatedColor ?? Colors.pink.withOpacity(0.8),
+    ).animate(curvedAnimation);
+
+    _textColorAnimation = ColorTween(
+      begin: widget.optionalFields.textColor ?? Colors.white,
+      end: widget.textAnimatedColor ?? Colors.pink.withOpacity(0.8),
     ).animate(curvedAnimation);
 
     /// Sequence Animations
@@ -150,6 +167,8 @@ class _WebButtonState extends State<WebButton>
         return getTextScrollButton();
       case WebButtonList.backgroundColorChange:
         return getBackgroundColorChangeButton();
+      case WebButtonList.textColorChange:
+        return getTextColorChangeButton();
       default:
         return const SizedBox();
     }
@@ -223,7 +242,28 @@ class _WebButtonState extends State<WebButton>
               ),
             )),
       );
-
+  getTextColorChangeButton() => AnimatedBuilder(
+        animation: _textColorAnimation,
+        builder: ((context, child) => Container(
+              width: widget.optionalFields.buttonWidth ?? double.infinity,
+              height: widget.optionalFields.buttonHeight,
+              decoration: standardBoxDecoration(),
+              child: Align(
+                alignment: Alignment.center,
+                child: Material(
+                  type: MaterialType.transparency,
+                  textStyle: TextStyle(
+                    color: _textColorAnimation.value,
+                    fontFamily: widget.optionalFields.fontFamily ?? '',
+                    fontSize: widget.optionalFields.fontSize ?? 16,
+                  ),
+                  child: Text(
+                    widget.text,
+                  ),
+                ),
+              ),
+            )),
+      );
   standardBoxDecoration() => BoxDecoration(
         color: widget.optionalFields.buttonBackgroundColor ?? Colors.pink,
         borderRadius: BorderRadius.all(
