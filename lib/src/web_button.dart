@@ -82,14 +82,14 @@ class _WebButtonState extends State<WebButton>
 
     ///Animations
     _backgroundColorAnimation = ColorTween(
-      begin: widget.optionalFields.buttonBackgroundColor ?? Colors.pink,
-      end: widget.backgroundAnimatedColor ?? Colors.pink[300]
-    ).animate(curvedAnimation);
+            begin: widget.optionalFields.buttonBackgroundColor ?? Colors.pink,
+            end: widget.backgroundAnimatedColor ?? Colors.pink[300])
+        .animate(curvedAnimation);
 
     _textColorAnimation = ColorTween(
-      begin: widget.optionalFields.textColor ?? Colors.white,
-      end: widget.textAnimatedColor ?? Colors.white70
-    ).animate(curvedAnimation);
+            begin: widget.optionalFields.textColor ?? Colors.white,
+            end: widget.textAnimatedColor ?? Colors.white70)
+        .animate(curvedAnimation);
 
     /// Sequence Animations
     _textScrollAnimation = TweenSequence(<TweenSequenceItem<double>>[
@@ -266,7 +266,9 @@ class _WebButtonState extends State<WebButton>
             )),
       );
   standardBoxDecoration() => BoxDecoration(
-        color: widget.optionalFields.buttonBackgroundColor ?? Colors.pink,
+        color: widget.optionalFields.eliminateDecoration!
+            ? Colors.transparent
+            : widget.optionalFields.buttonBackgroundColor ?? Colors.pink,
         borderRadius: BorderRadius.all(
             Radius.circular(widget.optionalFields.buttonRadius ?? 0)),
         border: widget.optionalFields.buttonBorderColor == null
