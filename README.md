@@ -29,7 +29,14 @@ TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. 
 
 ```dart
-const like = 'sample';
+WebButton.textScroll(
+  'Text Scroll',
+  onPressed: () {},
+  animationDuration: const Duration(milliseconds: 500),
+  optionalFields: WebButtonOptionalFields(
+    buttonWidth: 200,
+  ),
+),
 ```
 
 ## Additional information
