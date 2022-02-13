@@ -1,7 +1,7 @@
 name: web_buttons
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/djcali570/web_buttons
 
 environment:
   sdk: ">=2.16.0-144.0.dev <3.0.0"
