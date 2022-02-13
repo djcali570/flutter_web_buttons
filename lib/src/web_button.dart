@@ -83,12 +83,12 @@ class _WebButtonState extends State<WebButton>
     ///Animations
     _backgroundColorAnimation = ColorTween(
       begin: widget.optionalFields.buttonBackgroundColor ?? Colors.pink,
-      end: widget.backgroundAnimatedColor ?? Colors.pink.withOpacity(0.8),
+      end: widget.backgroundAnimatedColor ?? Colors.pink[300]
     ).animate(curvedAnimation);
 
     _textColorAnimation = ColorTween(
       begin: widget.optionalFields.textColor ?? Colors.white,
-      end: widget.textAnimatedColor ?? Colors.white.withOpacity(0.8),
+      end: widget.textAnimatedColor ?? Colors.white70
     ).animate(curvedAnimation);
 
     /// Sequence Animations
