@@ -4,6 +4,6 @@ enum WebButtonList {
   backgroundColorChange,
   raiseText,
   textColorChange,
-  opacityReveal,
+  backgroundFill,
   lightUpDots,
 }
