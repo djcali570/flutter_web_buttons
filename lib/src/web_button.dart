@@ -88,7 +88,7 @@ class _WebButtonState extends State<WebButton>
 
     _textColorAnimation = ColorTween(
       begin: widget.optionalFields.textColor ?? Colors.white,
-      end: widget.textAnimatedColor ?? Colors.pink.withOpacity(0.8),
+      end: widget.textAnimatedColor ?? Colors.white.withOpacity(0.8),
     ).animate(curvedAnimation);
 
     /// Sequence Animations
@@ -229,6 +229,7 @@ class _WebButtonState extends State<WebButton>
                 color: _backgroundColorAnimation.value,
                 borderRadius: standardBorderRadius(),
                 border: standardBorder(),
+                boxShadow: standardBoxShadow(),
               ),
               child: Align(
                 alignment: Alignment.center,
@@ -296,4 +297,15 @@ class _WebButtonState extends State<WebButton>
         fontFamily: widget.optionalFields.fontFamily ?? '',
         fontSize: widget.optionalFields.fontSize ?? 16,
       );
+
+  standardBoxShadow() => widget.optionalFields.boxShadowColor != null
+      ? [
+          BoxShadow(
+            color: widget.optionalFields.boxShadowColor!,
+            spreadRadius: widget.optionalFields.spreadRadius ?? -5,
+            blurRadius: widget.optionalFields.blurRadius ?? 7,
+            offset: widget.optionalFields.boxShadowOffset,
+          )
+        ]
+      : null;
 }
