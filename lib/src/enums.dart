@@ -6,6 +6,7 @@ enum WebButtonList {
   textColorChange,
   backgroundFill,
   lightUpDots,
+  socialIcon,
 }
 
 enum SocialIcon {
