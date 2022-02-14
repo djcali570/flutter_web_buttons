@@ -9,28 +9,8 @@ enum WebButtonList {
   socialIcon,
 }
 
-enum SocialIcon {
-  facebook,
-  facebookF,
-  facebookSquare,
-  twitter,
-  twitterSquare,
+enum WebButtonSocialIcon {
   instagram,
-  instagramSquare,
-  youtube,
-  youtubeSquare,
-  linkedin,
-  linkedinIn,
-  github,
-  githubAlt,
-  pinterest,
-  pinterestP,
-  pinterestSquare,
-  vimeoSquare,
-  vimeoV,
-  soundcloud,
-  snapchat,
-  snapchatGhost,
-  snapchatSquare,
-
+  twitter,
+  facebook,
 }
