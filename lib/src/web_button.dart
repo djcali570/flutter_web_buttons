@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_buttons/src/clippers.dart';
 import 'package:web_buttons/src/web_button_optional_fields.dart';
 import 'package:web_buttons/src/enums.dart';
 
@@ -11,6 +12,7 @@ class WebButton extends StatefulWidget {
   Color? backgroundAnimatedColor;
   Color? textAnimatedColor;
 
+  /// Button Constructors
   WebButton.simple(
     this.text, {
     Key? key,
@@ -57,6 +59,18 @@ class WebButton extends StatefulWidget {
   })  : _buttonType = WebButtonList.raiseText,
         super(key: key);
 
+  WebButton.backgroundFill(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.optionalFields,
+    this.textAnimatedColor,
+    this.backgroundAnimatedColor,
+    this.animationDuration,
+  })  : _buttonType = WebButtonList.backgroundFill,
+        super(key: key);
+
+  /// Button Type variable thats gets assigned in the constructor.
   final WebButtonList _buttonType;
 
   @override
@@ -65,12 +79,16 @@ class WebButton extends StatefulWidget {
 
 class _WebButtonState extends State<WebButton>
     with SingleTickerProviderStateMixin {
+  /// Animations and Controllers
   late AnimationController _controller;
   late Animation<double> _textScrollAnimation;
   late Animation<double> _textScrollOpacityAnimation;
   late Animation<Color?> _backgroundColorAnimation;
   late Animation<Color?> _textColorAnimation;
+  late Animation<Color?> _textColorAnimationNoCurve;
   late Animation<double> _raiseTextAnimation;
+  late Animation<double> _backgroundFill;
+
   @override
   void initState() {
     /// Animation Controller
@@ -100,8 +118,15 @@ class _WebButtonState extends State<WebButton>
             begin: widget.optionalFields.textColor ?? Colors.white,
             end: widget.textAnimatedColor ?? Colors.white70)
         .animate(curvedAnimation);
+    _textColorAnimationNoCurve = ColorTween(
+            begin: widget.optionalFields.textColor ?? Colors.pink,
+            end: widget.textAnimatedColor ?? Colors.white)
+        .animate(_controller);
     _raiseTextAnimation =
         Tween<double>(begin: 0.0, end: -4).animate(curvedAnimation);
+    _backgroundFill = Tween<double>(
+            begin: 0, end: widget.optionalFields.buttonWidth ?? double.infinity)
+        .animate(curvedAnimation);
 
     /// Sequence Animations
     _textScrollAnimation = TweenSequence(<TweenSequenceItem<double>>[
@@ -143,7 +168,7 @@ class _WebButtonState extends State<WebButton>
     return Padding(
       padding: widget.optionalFields.buttonPadding!,
 
-      /// Use mouse region to start animations.
+      /// A mouse region is used here so that on hover you can start and reverse the animation.
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         onEnter: (event) {
@@ -157,7 +182,7 @@ class _WebButtonState extends State<WebButton>
           });
         },
 
-        /// Assign on tap event.
+        /// Gesture detector is used to handle the onPressed event.
         child: GestureDetector(
           onTap: widget.onPressed,
           child: getButton(),
@@ -166,7 +191,7 @@ class _WebButtonState extends State<WebButton>
     );
   }
 
-  /// Start controller
+  /// Start/Reverse controller on hover.
   hoverEvent(bool hovered) {
     hovered ? _controller.forward() : _controller.reverse();
   }
@@ -184,12 +209,14 @@ class _WebButtonState extends State<WebButton>
         return getTextColorChangeButton();
       case WebButtonList.raiseText:
         return getRaiseTextButton();
+      case WebButtonList.backgroundFill:
+        return getBackgroundFillButton();
       default:
         return const SizedBox();
     }
   }
 
-  /// Button Types
+  /// Button Types that get returned to the gesture detector.
   getSimpleButton() => Container(
         width: widget.optionalFields.buttonWidth ?? double.infinity,
         height: widget.optionalFields.buttonHeight!,
@@ -303,8 +330,62 @@ class _WebButtonState extends State<WebButton>
                   )),
         ),
       );
+  getBackgroundFillButton() => SizedBox(
+        width: widget.optionalFields.buttonWidth ?? double.infinity,
+        height: widget.optionalFields.buttonHeight,
 
-  /// Default decorations used to eliminate repeated code.
+        /// A clip path is used so the fill color does not show when using a radius button.
+        child: ClipPath(
+          clipper: PillClipper(widget.optionalFields.buttonRadius ?? 0),
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: widget.optionalFields.buttonBackgroundColor ??
+                      Colors.pink[100],
+                  border: standardBorder(),
+                ),
+              ),
+
+              /// This the container which gets animated to fill the button.
+              AnimatedBuilder(
+                animation: _backgroundFill,
+                builder: ((context, child) => Transform.scale(
+                      scaleX: 1,
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        width: _backgroundFill.value,
+                        decoration: BoxDecoration(
+                          color: widget.backgroundAnimatedColor ?? Colors.pink,
+                        ),
+                      ),
+                    )),
+              ),
+
+              /// This is the text with color animation.
+              Align(
+                alignment: Alignment.center,
+                child: AnimatedBuilder(
+                  animation: _textColorAnimationNoCurve,
+                  builder: ((context, child) => Material(
+                        type: MaterialType.transparency,
+                        textStyle: TextStyle(
+                          color: _textColorAnimationNoCurve.value,
+                          fontFamily: widget.optionalFields.fontFamily ?? '',
+                          fontSize: widget.optionalFields.fontSize ?? 16,
+                        ),
+                        child: Text(
+                          widget.text,
+                        ),
+                      )),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  /// Default decorations are used by multiple buttons so these eliminate repeated code.
   standardBoxDecoration() => BoxDecoration(
         color: widget.optionalFields.eliminateDecoration!
             ? Colors.transparent
