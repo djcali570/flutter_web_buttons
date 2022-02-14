@@ -129,7 +129,7 @@ class _WebButtonState extends State<WebButton>
         reverseCurve: Curves.easeInOutQuint);
 
     ///Animations
-    ///
+    
     /// These animations are only for non icon buttons.
     if (widget.webButtonOptionalFields != null) {
       _backgroundColorAnimation = ColorTween(
