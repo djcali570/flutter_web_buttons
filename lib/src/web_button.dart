@@ -105,6 +105,7 @@ class _WebButtonState extends State<WebButton>
   // final Color darkColor = Colors.pink;
   final Color? lightColor = Colors.pink[100];
   final Color textColor = Colors.white;
+  final Color darkTextColor = Colors.pink;
 
   @override
   void initState() {
@@ -138,7 +139,7 @@ class _WebButtonState extends State<WebButton>
         .animate(curvedAnimation);
     _textColorAnimationNoCurve = ColorTween(
             begin: widget.webButtonOptionalFields!.textColor ?? darkColor,
-            end: widget.textAnimatedColor ?? textColor)
+            end: widget.textAnimatedColor ?? darkTextColor)
         .animate(_controller);
     _raiseTextAnimation =
         Tween<double>(begin: 0.0, end: -4).animate(curvedAnimation);
