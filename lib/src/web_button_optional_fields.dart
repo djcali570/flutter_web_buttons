@@ -35,3 +35,12 @@ class WebButtonOptionalFields {
     this.boxShadowOffset = const Offset(0.0, 8.0),
   });
 }
+
+class WebButtonIconOptionalFields {
+  double? size;
+  Color? color;
+  WebButtonIconOptionalFields({
+    this.size,
+    this.color,
+  });
+}
