@@ -13,6 +13,7 @@ class WebButton extends StatefulWidget {
   Color? backgroundAnimatedColor;
   Color? textAnimatedColor;
   WebButtonSocialIcon? webButtonSocialIcon;
+  WebButtonIconOptionalFields? webButtonIconOptionalFields;
 
   /// Button Constructors
   WebButton.simple(
@@ -76,7 +77,7 @@ class WebButton extends StatefulWidget {
     Key? key,
     required this.webButtonSocialIcon,
     required this.onPressed,
-    required this.webButtonOptionalFields,
+    required this.webButtonIconOptionalFields,
     this.animationDuration,
   })  : _buttonType = WebButtonList.socialIcon,
         super(key: key);
@@ -104,7 +105,7 @@ class _WebButtonState extends State<WebButton>
   // final Color darkColor = Colors.blue;
   // final Color? lightColor = Colors.blue[100];
   final Color darkColor = Colors.pink;
-  final Color? lightColor = Colors.pink[100];  
+  final Color? lightColor = Colors.pink[100];
   final Color textColor = Colors.white;
   final Color darkTextColor = Colors.pink;
 
@@ -128,66 +129,77 @@ class _WebButtonState extends State<WebButton>
         reverseCurve: Curves.easeInOutQuint);
 
     ///Animations
-    _backgroundColorAnimation = ColorTween(
-            begin: widget.webButtonOptionalFields!.buttonBackgroundColor ??
-                darkColor,
-            end: widget.backgroundAnimatedColor ?? lightColor)
-        .animate(curvedAnimation);
+    ///
+    /// These animations are only for non icon buttons.
+    if (widget.webButtonOptionalFields != null) {
+      _backgroundColorAnimation = ColorTween(
+              begin: widget.webButtonOptionalFields!.buttonBackgroundColor ??
+                  darkColor,
+              end: widget.backgroundAnimatedColor ?? lightColor)
+          .animate(curvedAnimation);
 
-    _textColorAnimation = ColorTween(
-            begin: widget.webButtonOptionalFields!.textColor ?? textColor,
-            end: widget.textAnimatedColor ?? Colors.white70)
-        .animate(curvedAnimation);
-    _textColorAnimationNoCurve = ColorTween(
-            begin: widget.webButtonOptionalFields!.textColor ?? darkTextColor,
-            end: widget.textAnimatedColor ?? textColor)
-        .animate(_controller);
-    _raiseTextAnimation =
-        Tween<double>(begin: 0.0, end: -4).animate(curvedAnimation);
-    _backgroundFill = Tween<double>(
-            begin: 0,
-            end: widget.webButtonOptionalFields!.buttonWidth ?? double.infinity)
-        .animate(curvedAnimation);
+      _textColorAnimation = ColorTween(
+              begin: widget.webButtonOptionalFields!.textColor ?? textColor,
+              end: widget.textAnimatedColor ?? Colors.white70)
+          .animate(curvedAnimation);
+      _textColorAnimationNoCurve = ColorTween(
+              begin: widget.webButtonOptionalFields!.textColor ?? darkTextColor,
+              end: widget.textAnimatedColor ?? textColor)
+          .animate(_controller);
+      _raiseTextAnimation =
+          Tween<double>(begin: 0.0, end: -4).animate(curvedAnimation);
+      _backgroundFill = Tween<double>(
+              begin: 0,
+              end: widget.webButtonOptionalFields!.buttonWidth ??
+                  double.infinity)
+          .animate(curvedAnimation);
 
-    /// Sequence Animations
-    _textScrollAnimation = TweenSequence(<TweenSequenceItem<double>>[
-      TweenSequenceItem<double>(
+      /// Sequence Animations for non icon buttons
+      _textScrollAnimation = TweenSequence(<TweenSequenceItem<double>>[
+        TweenSequenceItem<double>(
+            tween: Tween<double>(
+              begin: 0.0,
+              end: -widget.webButtonOptionalFields!.buttonHeight! / 3,
+            ),
+            weight: 50),
+        TweenSequenceItem<double>(
+            tween: Tween<double>(
+              begin: widget.webButtonOptionalFields!.buttonHeight! / 3,
+              end: 0.0,
+            ),
+            weight: 50),
+      ]).animate(curvedAnimation2);
+
+      _textScrollOpacityAnimation = TweenSequence(<TweenSequenceItem<double>>[
+        TweenSequenceItem<double>(
           tween: Tween<double>(
-            begin: 0.0,
-            end: -widget.webButtonOptionalFields!.buttonHeight! / 3,
+            begin: 1,
+            end: 0,
           ),
-          weight: 50),
-      TweenSequenceItem<double>(
-          tween: Tween<double>(
-            begin: widget.webButtonOptionalFields!.buttonHeight! / 3,
-            end: 0.0,
-          ),
-          weight: 50),
-    ]).animate(curvedAnimation2);
-
-    _textScrollOpacityAnimation = TweenSequence(<TweenSequenceItem<double>>[
-      TweenSequenceItem<double>(
-        tween: Tween<double>(
-          begin: 1,
-          end: 0,
+          weight: 50,
         ),
-        weight: 50,
-      ),
-      TweenSequenceItem<double>(
-          tween: Tween<double>(
-            begin: 0,
-            end: 1,
-          ),
-          weight: 50),
-    ]).animate(_controller);
+        TweenSequenceItem<double>(
+            tween: Tween<double>(
+              begin: 0,
+              end: 1,
+            ),
+            weight: 50),
+      ]).animate(_controller);
+    }
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: widget.webButtonOptionalFields!.buttonPadding!,
+    debugPrint('Got to buildcontext');
+    return
+
+        /// If optional fields are not required by the button, set default padding.
+        Padding(
+      padding: widget.webButtonOptionalFields != null
+          ? widget.webButtonOptionalFields!.buttonPadding!
+          : const EdgeInsets.all(0),
 
       /// A mouse region is used here so that on hover you can start and reverse the animation.
       child: MouseRegion(
