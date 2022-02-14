@@ -33,8 +33,4 @@ class WebButtonIcon {
         );
     }
   }
-
-  getSocialButton(IconData icon) => SizedBox(
-        child: Icon(icon),
-      );
 }
