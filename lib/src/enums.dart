@@ -7,3 +7,29 @@ enum WebButtonList {
   backgroundFill,
   lightUpDots,
 }
+
+enum SocialIcon {
+  facebook,
+  facebookF,
+  facebookSquare,
+  twitter,
+  twitterSquare,
+  instagram,
+  instagramSquare,
+  youtube,
+  youtubeSquare,
+  linkedin,
+  linkedinIn,
+  github,
+  githubAlt,
+  pinterest,
+  pinterestP,
+  pinterestSquare,
+  vimeoSquare,
+  vimeoV,
+  soundcloud,
+  snapchat,
+  snapchatGhost,
+  snapchatSquare,
+
+}
