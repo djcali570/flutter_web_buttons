@@ -138,8 +138,8 @@ class _WebButtonState extends State<WebButton>
             end: widget.textAnimatedColor ?? Colors.white70)
         .animate(curvedAnimation);
     _textColorAnimationNoCurve = ColorTween(
-            begin: widget.webButtonOptionalFields!.textColor ?? darkColor,
-            end: widget.textAnimatedColor ?? darkTextColor)
+            begin: widget.webButtonOptionalFields!.textColor ?? darkTextColor,
+            end: widget.textAnimatedColor ?? textColor)
         .animate(_controller);
     _raiseTextAnimation =
         Tween<double>(begin: 0.0, end: -4).animate(curvedAnimation);
