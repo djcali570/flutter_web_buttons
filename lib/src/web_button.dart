@@ -101,9 +101,10 @@ class _WebButtonState extends State<WebButton>
   late Animation<double> _raiseTextAnimation;
   late Animation<double> _backgroundFill;
 
-  final Color darkColor = Colors.blue;
-  // final Color darkColor = Colors.pink;
-  final Color? lightColor = Colors.pink[100];
+  // final Color darkColor = Colors.blue;
+  // final Color? lightColor = Colors.blue[100];
+  final Color darkColor = Colors.pink;
+  final Color? lightColor = Colors.pink[100];  
   final Color textColor = Colors.white;
   final Color darkTextColor = Colors.pink;
 
