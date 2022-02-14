@@ -101,6 +101,11 @@ class _WebButtonState extends State<WebButton>
   late Animation<double> _raiseTextAnimation;
   late Animation<double> _backgroundFill;
 
+  final Color darkColor = Colors.blue;
+  // final Color darkColor = Colors.pink;
+  final Color? lightColor = Colors.pink[100];
+  final Color textColor = Colors.white;
+
   @override
   void initState() {
     /// Animation Controller
@@ -122,17 +127,18 @@ class _WebButtonState extends State<WebButton>
 
     ///Animations
     _backgroundColorAnimation = ColorTween(
-            begin: widget.webButtonOptionalFields!.buttonBackgroundColor ?? Colors.pink,
-            end: widget.backgroundAnimatedColor ?? Colors.pink[300])
+            begin: widget.webButtonOptionalFields!.buttonBackgroundColor ??
+                darkColor,
+            end: widget.backgroundAnimatedColor ?? lightColor)
         .animate(curvedAnimation);
 
     _textColorAnimation = ColorTween(
-            begin: widget.webButtonOptionalFields!.textColor ?? Colors.white,
+            begin: widget.webButtonOptionalFields!.textColor ?? textColor,
             end: widget.textAnimatedColor ?? Colors.white70)
         .animate(curvedAnimation);
     _textColorAnimationNoCurve = ColorTween(
-            begin: widget.webButtonOptionalFields!.textColor ?? Colors.pink,
-            end: widget.textAnimatedColor ?? Colors.white)
+            begin: widget.webButtonOptionalFields!.textColor ?? darkColor,
+            end: widget.textAnimatedColor ?? textColor)
         .animate(_controller);
     _raiseTextAnimation =
         Tween<double>(begin: 0.0, end: -4).animate(curvedAnimation);
@@ -225,7 +231,8 @@ class _WebButtonState extends State<WebButton>
       case WebButtonList.backgroundFill:
         return getBackgroundFillButton();
       case WebButtonList.socialIcon:
-        return getSocialButton(WebButtonIcon.getSocialIcon(widget.webButtonSocialIcon!));
+        return getSocialButton(
+            WebButtonIcon.getSocialIcon(widget.webButtonSocialIcon!));
       default:
         return const SizedBox();
     }
@@ -281,7 +288,8 @@ class _WebButtonState extends State<WebButton>
   getBackgroundColorChangeButton() => AnimatedBuilder(
         animation: _backgroundColorAnimation,
         builder: ((context, child) => Container(
-              width: widget.webButtonOptionalFields!.buttonWidth ?? double.infinity,
+              width: widget.webButtonOptionalFields!.buttonWidth ??
+                  double.infinity,
               height: widget.webButtonOptionalFields!.buttonHeight,
               decoration: BoxDecoration(
                 color: _backgroundColorAnimation.value,
@@ -304,7 +312,8 @@ class _WebButtonState extends State<WebButton>
   getTextColorChangeButton() => AnimatedBuilder(
         animation: _textColorAnimation,
         builder: ((context, child) => Container(
-              width: widget.webButtonOptionalFields!.buttonWidth ?? double.infinity,
+              width: widget.webButtonOptionalFields!.buttonWidth ??
+                  double.infinity,
               height: widget.webButtonOptionalFields!.buttonHeight,
               decoration: standardBoxDecoration(),
               child: Align(
@@ -313,7 +322,8 @@ class _WebButtonState extends State<WebButton>
                   type: MaterialType.transparency,
                   textStyle: TextStyle(
                     color: _textColorAnimation.value,
-                    fontFamily: widget.webButtonOptionalFields!.fontFamily ?? '',
+                    fontFamily:
+                        widget.webButtonOptionalFields!.fontFamily ?? '',
                     fontSize: widget.webButtonOptionalFields!.fontSize ?? 16,
                   ),
                   child: Text(
@@ -351,13 +361,15 @@ class _WebButtonState extends State<WebButton>
 
         /// A clip path is used so the fill color does not show when using a radius button.
         child: ClipPath(
-          clipper: PillClipper(widget.webButtonOptionalFields!.buttonRadius ?? 0),
+          clipper:
+              PillClipper(widget.webButtonOptionalFields!.buttonRadius ?? 0),
           child: Stack(
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: widget.webButtonOptionalFields!.buttonBackgroundColor ??
-                      Colors.pink[100],
+                  color:
+                      widget.webButtonOptionalFields!.buttonBackgroundColor ??
+                          lightColor,
                   border: standardBorder(),
                 ),
               ),
@@ -371,7 +383,7 @@ class _WebButtonState extends State<WebButton>
                       child: Container(
                         width: _backgroundFill.value,
                         decoration: BoxDecoration(
-                          color: widget.backgroundAnimatedColor ?? Colors.pink,
+                          color: widget.backgroundAnimatedColor ?? darkColor,
                         ),
                       ),
                     )),
@@ -386,8 +398,10 @@ class _WebButtonState extends State<WebButton>
                         type: MaterialType.transparency,
                         textStyle: TextStyle(
                           color: _textColorAnimationNoCurve.value,
-                          fontFamily: widget.webButtonOptionalFields!.fontFamily ?? '',
-                          fontSize: widget.webButtonOptionalFields!.fontSize ?? 16,
+                          fontFamily:
+                              widget.webButtonOptionalFields!.fontFamily ?? '',
+                          fontSize:
+                              widget.webButtonOptionalFields!.fontSize ?? 16,
                         ),
                         child: Text(
                           widget.text!,
@@ -407,19 +421,22 @@ class _WebButtonState extends State<WebButton>
   standardBoxDecoration() => BoxDecoration(
         color: widget.webButtonOptionalFields!.eliminateDecoration!
             ? Colors.transparent
-            : widget.webButtonOptionalFields!.buttonBackgroundColor ?? Colors.pink,
+            : widget.webButtonOptionalFields!.buttonBackgroundColor ??
+                darkColor,
         borderRadius: BorderRadius.all(
             Radius.circular(widget.webButtonOptionalFields!.buttonRadius ?? 0)),
         border: widget.webButtonOptionalFields!.buttonBorderColor == null
             ? const Border.fromBorderSide(BorderSide.none)
             : Border.all(
                 color: widget.webButtonOptionalFields!.buttonBorderColor!,
-                width: widget.webButtonOptionalFields!.buttonBorderWidth ?? 1.0),
+                width:
+                    widget.webButtonOptionalFields!.buttonBorderWidth ?? 1.0),
         boxShadow: widget.webButtonOptionalFields!.boxShadowColor != null
             ? [
                 BoxShadow(
                   color: widget.webButtonOptionalFields!.boxShadowColor!,
-                  spreadRadius: widget.webButtonOptionalFields!.spreadRadius ?? -5,
+                  spreadRadius:
+                      widget.webButtonOptionalFields!.spreadRadius ?? -5,
                   blurRadius: widget.webButtonOptionalFields!.blurRadius ?? 7,
                   offset: widget.webButtonOptionalFields!.boxShadowOffset,
                 )
@@ -434,7 +451,7 @@ class _WebButtonState extends State<WebButton>
           color: widget.webButtonOptionalFields!.buttonBorderColor!,
           width: widget.webButtonOptionalFields!.buttonBorderWidth ?? 1.0);
   standardTextStyle() => TextStyle(
-        color: widget.webButtonOptionalFields!.textColor ?? Colors.white,
+        color: widget.webButtonOptionalFields!.textColor ?? textColor,
         fontFamily: widget.webButtonOptionalFields!.fontFamily ?? '',
         fontSize: widget.webButtonOptionalFields!.fontSize ?? 16,
       );
