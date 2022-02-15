@@ -1,96 +1,96 @@
 import 'package:flutter/material.dart';
-import 'package:web_buttons/src/clippers.dart';
-import 'package:web_buttons/src/icon_config.dart';
-import 'package:web_buttons/src/web_button_optional_fields.dart';
-import 'package:web_buttons/src/enums.dart';
+import 'package:flutter_web_buttons/src/clippers.dart';
+import 'package:flutter_web_buttons/src/icon_config.dart';
+import 'package:flutter_web_buttons/src/flutter_web_button_optional_fields.dart';
+import 'package:flutter_web_buttons/src/enums.dart';
 
 // ignore: must_be_immutable
-class WebButton extends StatefulWidget {
+class FlutterWebButton extends StatefulWidget {
   VoidCallback? onPressed;
   String? text;
-  WebButtonOptionalFields? webButtonOptionalFields;
+  FlutterWebButtonOptions? flutterWebButtonOptions;
   Duration? animationDuration;
   Color? backgroundAnimatedColor;
   Color? textAnimatedColor;
-  WebButtonSocialIcon? webButtonSocialIcon;
-  WebButtonIconOptionalFields? webButtonIconOptionalFields;
+  FlutterWebButtonSocialIcon? flutterWebButtonSocialIcon;
+  FlutterWebIconOptions? flutterWebIconButtonOptions;
 
   /// Button Constructors
-  WebButton.simple(
+  FlutterWebButton.simple(
     this.text, {
     Key? key,
     required this.onPressed,
-    required this.webButtonOptionalFields,
-  })  : _buttonType = WebButtonList.simple,
+    required this.flutterWebButtonOptions,
+  })  : _buttonType = FlutterWebButtonList.simple,
         super(key: key);
 
-  WebButton.textScroll(
+  FlutterWebButton.textScroll(
     this.text, {
     Key? key,
     required this.onPressed,
-    required this.webButtonOptionalFields,
+    required this.flutterWebButtonOptions,
     this.animationDuration,
-  })  : _buttonType = WebButtonList.textScroll,
+  })  : _buttonType = FlutterWebButtonList.textScroll,
         super(key: key);
 
-  WebButton.backgroundColorChange(
+  FlutterWebButton.backgroundColorChange(
     this.text, {
     Key? key,
     required this.onPressed,
-    required this.webButtonOptionalFields,
+    required this.flutterWebButtonOptions,
     this.backgroundAnimatedColor,
     this.animationDuration,
-  })  : _buttonType = WebButtonList.backgroundColorChange,
+  })  : _buttonType = FlutterWebButtonList.backgroundColorChange,
         super(key: key);
 
-  WebButton.textColorChange(
+  FlutterWebButton.textColorChange(
     this.text, {
     Key? key,
     required this.onPressed,
-    required this.webButtonOptionalFields,
+    required this.flutterWebButtonOptions,
     this.textAnimatedColor,
     this.animationDuration,
-  })  : _buttonType = WebButtonList.textColorChange,
+  })  : _buttonType = FlutterWebButtonList.textColorChange,
         super(key: key);
 
-  WebButton.raiseText(
+  FlutterWebButton.raiseText(
     this.text, {
     Key? key,
     required this.onPressed,
-    required this.webButtonOptionalFields,
+    required this.flutterWebButtonOptions,
     this.animationDuration,
-  })  : _buttonType = WebButtonList.raiseText,
+  })  : _buttonType = FlutterWebButtonList.raiseText,
         super(key: key);
 
-  WebButton.backgroundFill(
+  FlutterWebButton.backgroundFill(
     this.text, {
     Key? key,
     required this.onPressed,
-    required this.webButtonOptionalFields,
+    required this.flutterWebButtonOptions,
     this.textAnimatedColor,
     this.backgroundAnimatedColor,
     this.animationDuration,
-  })  : _buttonType = WebButtonList.backgroundFill,
+  })  : _buttonType = FlutterWebButtonList.backgroundFill,
         super(key: key);
 
-  WebButton.socialIcon({
+  FlutterWebButton.socialIcon({
     Key? key,
-    required this.webButtonSocialIcon,
+    required this.flutterWebButtonSocialIcon,
     required this.onPressed,
-    required this.webButtonIconOptionalFields,
+    required this.flutterWebIconButtonOptions,
     this.animationDuration,
-  })  : _buttonType = WebButtonList.socialIcon,
+  })  : _buttonType = FlutterWebButtonList.socialIcon,
         super(key: key);
 
   /// Button Type variable thats gets assigned in the constructor.
 
-  final WebButtonList _buttonType;
+  final FlutterWebButtonList _buttonType;
 
   @override
-  State<WebButton> createState() => _WebButtonState();
+  State<FlutterWebButton> createState() => _FlutterWebButtonState();
 }
 
-class _WebButtonState extends State<WebButton>
+class _FlutterWebButtonState extends State<FlutterWebButton>
     with SingleTickerProviderStateMixin {
   /// Animations and Controllers
   late AnimationController _controller;
@@ -131,26 +131,26 @@ class _WebButtonState extends State<WebButton>
     ///Animations
 
     /// These animations are only for non icon buttons.
-    if (widget.webButtonOptionalFields != null) {
+    if (widget.flutterWebButtonOptions != null) {
       _backgroundColorAnimation = ColorTween(
-              begin: widget.webButtonOptionalFields!.buttonBackgroundColor ??
+              begin: widget.flutterWebButtonOptions!.buttonBackgroundColor ??
                   darkColor,
               end: widget.backgroundAnimatedColor ?? lightColor)
           .animate(curvedAnimation);
 
       _textColorAnimation = ColorTween(
-              begin: widget.webButtonOptionalFields!.textColor ?? textColor,
+              begin: widget.flutterWebButtonOptions!.textColor ?? textColor,
               end: widget.textAnimatedColor ?? Colors.white70)
           .animate(curvedAnimation);
       _textColorAnimationNoCurve = ColorTween(
-              begin: widget.webButtonOptionalFields!.textColor ?? darkTextColor,
+              begin: widget.flutterWebButtonOptions!.textColor ?? darkTextColor,
               end: widget.textAnimatedColor ?? textColor)
           .animate(_controller);
       _raiseTextAnimation =
           Tween<double>(begin: 0.0, end: -4).animate(curvedAnimation);
       _backgroundFill = Tween<double>(
               begin: 0,
-              end: widget.webButtonOptionalFields!.buttonWidth ??
+              end: widget.flutterWebButtonOptions!.buttonWidth ??
                   double.infinity)
           .animate(curvedAnimation);
 
@@ -159,12 +159,12 @@ class _WebButtonState extends State<WebButton>
         TweenSequenceItem<double>(
             tween: Tween<double>(
               begin: 0.0,
-              end: -widget.webButtonOptionalFields!.buttonHeight! / 3,
+              end: -widget.flutterWebButtonOptions!.buttonHeight! / 3,
             ),
             weight: 50),
         TweenSequenceItem<double>(
             tween: Tween<double>(
-              begin: widget.webButtonOptionalFields!.buttonHeight! / 3,
+              begin: widget.flutterWebButtonOptions!.buttonHeight! / 3,
               end: 0.0,
             ),
             weight: 50),
@@ -192,13 +192,12 @@ class _WebButtonState extends State<WebButton>
 
   @override
   Widget build(BuildContext context) {
-
     // Set the padding for button or icon button. Since both paddings have a default setting we avoid null values.
     return Padding(
-      padding: widget.webButtonOptionalFields != null
-          ? widget.webButtonOptionalFields!.buttonPadding!
-          : widget.webButtonIconOptionalFields != null
-              ? widget.webButtonIconOptionalFields!.padding!
+      padding: widget.flutterWebButtonOptions != null
+          ? widget.flutterWebButtonOptions!.buttonPadding!
+          : widget.flutterWebIconButtonOptions != null
+              ? widget.flutterWebIconButtonOptions!.padding!
               : EdgeInsets.zero,
 
       /// A mouse region is used here so that on hover you can start and reverse the animation.
@@ -232,21 +231,21 @@ class _WebButtonState extends State<WebButton>
   /// Based on the constructor used, return the associated button.
   getButton() {
     switch (widget._buttonType) {
-      case WebButtonList.simple:
+      case FlutterWebButtonList.simple:
         return getSimpleButton();
-      case WebButtonList.textScroll:
+      case FlutterWebButtonList.textScroll:
         return getTextScrollButton();
-      case WebButtonList.backgroundColorChange:
+      case FlutterWebButtonList.backgroundColorChange:
         return getBackgroundColorChangeButton();
-      case WebButtonList.textColorChange:
+      case FlutterWebButtonList.textColorChange:
         return getTextColorChangeButton();
-      case WebButtonList.raiseText:
+      case FlutterWebButtonList.raiseText:
         return getRaiseTextButton();
-      case WebButtonList.backgroundFill:
+      case FlutterWebButtonList.backgroundFill:
         return getBackgroundFillButton();
-      case WebButtonList.socialIcon:
+      case FlutterWebButtonList.socialIcon:
         return getSocialButton(
-            WebButtonIcon.getSocialIcon(widget.webButtonSocialIcon!));
+            WebButtonIcon.getSocialIcon(widget.flutterWebButtonSocialIcon!));
       default:
         return const SizedBox();
     }
@@ -254,9 +253,9 @@ class _WebButtonState extends State<WebButton>
 
   /// Button Types that get returned to the gesture detector.
   getSimpleButton() => Container(
-        width: widget.webButtonOptionalFields!.buttonWidth ?? double.infinity,
-        height: widget.webButtonOptionalFields!.buttonHeight!,
-        decoration: widget.webButtonOptionalFields!.eliminateDecoration!
+        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
+        height: widget.flutterWebButtonOptions!.buttonHeight!,
+        decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
             ? null
             : standardBoxDecoration(),
         child: Align(
@@ -270,9 +269,9 @@ class _WebButtonState extends State<WebButton>
             )),
       );
   getTextScrollButton() => Container(
-        width: widget.webButtonOptionalFields!.buttonWidth ?? double.infinity,
-        height: widget.webButtonOptionalFields!.buttonHeight!,
-        decoration: widget.webButtonOptionalFields!.eliminateDecoration!
+        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
+        height: widget.flutterWebButtonOptions!.buttonHeight!,
+        decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
             ? null
             : standardBoxDecoration(),
         child: Align(
@@ -302,9 +301,9 @@ class _WebButtonState extends State<WebButton>
   getBackgroundColorChangeButton() => AnimatedBuilder(
         animation: _backgroundColorAnimation,
         builder: ((context, child) => Container(
-              width: widget.webButtonOptionalFields!.buttonWidth ??
+              width: widget.flutterWebButtonOptions!.buttonWidth ??
                   double.infinity,
-              height: widget.webButtonOptionalFields!.buttonHeight,
+              height: widget.flutterWebButtonOptions!.buttonHeight,
               decoration: BoxDecoration(
                 color: _backgroundColorAnimation.value,
                 borderRadius: standardBorderRadius(),
@@ -326,9 +325,9 @@ class _WebButtonState extends State<WebButton>
   getTextColorChangeButton() => AnimatedBuilder(
         animation: _textColorAnimation,
         builder: ((context, child) => Container(
-              width: widget.webButtonOptionalFields!.buttonWidth ??
+              width: widget.flutterWebButtonOptions!.buttonWidth ??
                   double.infinity,
-              height: widget.webButtonOptionalFields!.buttonHeight,
+              height: widget.flutterWebButtonOptions!.buttonHeight,
               decoration: standardBoxDecoration(),
               child: Align(
                 alignment: Alignment.center,
@@ -337,8 +336,8 @@ class _WebButtonState extends State<WebButton>
                   textStyle: TextStyle(
                     color: _textColorAnimation.value,
                     fontFamily:
-                        widget.webButtonOptionalFields!.fontFamily ?? '',
-                    fontSize: widget.webButtonOptionalFields!.fontSize ?? 16,
+                        widget.flutterWebButtonOptions!.fontFamily ?? '',
+                    fontSize: widget.flutterWebButtonOptions!.fontSize ?? 16,
                   ),
                   child: Text(
                     widget.text!,
@@ -348,9 +347,9 @@ class _WebButtonState extends State<WebButton>
             )),
       );
   getRaiseTextButton() => Container(
-        width: widget.webButtonOptionalFields!.buttonWidth ?? double.infinity,
-        height: widget.webButtonOptionalFields!.buttonHeight,
-        decoration: widget.webButtonOptionalFields!.eliminateDecoration!
+        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
+        height: widget.flutterWebButtonOptions!.buttonHeight,
+        decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
             ? null
             : standardBoxDecoration(),
         child: Align(
@@ -370,19 +369,19 @@ class _WebButtonState extends State<WebButton>
         ),
       );
   getBackgroundFillButton() => SizedBox(
-        width: widget.webButtonOptionalFields!.buttonWidth ?? double.infinity,
-        height: widget.webButtonOptionalFields!.buttonHeight,
+        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
+        height: widget.flutterWebButtonOptions!.buttonHeight,
 
         /// A clip path is used so the fill color does not show when using a radius button.
         child: ClipPath(
           clipper:
-              PillClipper(widget.webButtonOptionalFields!.buttonRadius ?? 0),
+              PillClipper(widget.flutterWebButtonOptions!.buttonRadius ?? 0),
           child: Stack(
             children: [
               Container(
                 decoration: BoxDecoration(
                   color:
-                      widget.webButtonOptionalFields!.buttonBackgroundColor ??
+                      widget.flutterWebButtonOptions!.buttonBackgroundColor ??
                           lightColor,
                   border: standardBorder(),
                 ),
@@ -413,9 +412,9 @@ class _WebButtonState extends State<WebButton>
                         textStyle: TextStyle(
                           color: _textColorAnimationNoCurve.value,
                           fontFamily:
-                              widget.webButtonOptionalFields!.fontFamily ?? '',
+                              widget.flutterWebButtonOptions!.fontFamily ?? '',
                           fontSize:
-                              widget.webButtonOptionalFields!.fontSize ?? 16,
+                              widget.flutterWebButtonOptions!.fontSize ?? 16,
                         ),
                         child: Text(
                           widget.text!,
@@ -430,56 +429,56 @@ class _WebButtonState extends State<WebButton>
   getSocialButton(IconData icon) => SizedBox(
         child: Icon(
           icon,
-          color: widget.webButtonIconOptionalFields!.color ?? darkColor,
-          size: widget.webButtonIconOptionalFields!.size ?? 32,
+          color: widget.flutterWebIconButtonOptions!.color ?? darkColor,
+          size: widget.flutterWebIconButtonOptions!.size ?? 32,
         ),
       );
 
   /// Default decorations are used by multiple buttons so these eliminate repeated code.
   standardBoxDecoration() => BoxDecoration(
-        color: widget.webButtonOptionalFields!.eliminateDecoration!
+        color: widget.flutterWebButtonOptions!.eliminateDecoration!
             ? Colors.transparent
-            : widget.webButtonOptionalFields!.buttonBackgroundColor ??
+            : widget.flutterWebButtonOptions!.buttonBackgroundColor ??
                 darkColor,
         borderRadius: BorderRadius.all(
-            Radius.circular(widget.webButtonOptionalFields!.buttonRadius ?? 0)),
-        border: widget.webButtonOptionalFields!.buttonBorderColor == null
+            Radius.circular(widget.flutterWebButtonOptions!.buttonRadius ?? 0)),
+        border: widget.flutterWebButtonOptions!.buttonBorderColor == null
             ? const Border.fromBorderSide(BorderSide.none)
             : Border.all(
-                color: widget.webButtonOptionalFields!.buttonBorderColor!,
+                color: widget.flutterWebButtonOptions!.buttonBorderColor!,
                 width:
-                    widget.webButtonOptionalFields!.buttonBorderWidth ?? 1.0),
-        boxShadow: widget.webButtonOptionalFields!.boxShadowColor != null
+                    widget.flutterWebButtonOptions!.buttonBorderWidth ?? 1.0),
+        boxShadow: widget.flutterWebButtonOptions!.boxShadowColor != null
             ? [
                 BoxShadow(
-                  color: widget.webButtonOptionalFields!.boxShadowColor!,
+                  color: widget.flutterWebButtonOptions!.boxShadowColor!,
                   spreadRadius:
-                      widget.webButtonOptionalFields!.spreadRadius ?? -5,
-                  blurRadius: widget.webButtonOptionalFields!.blurRadius ?? 7,
-                  offset: widget.webButtonOptionalFields!.boxShadowOffset,
+                      widget.flutterWebButtonOptions!.spreadRadius ?? -5,
+                  blurRadius: widget.flutterWebButtonOptions!.blurRadius ?? 7,
+                  offset: widget.flutterWebButtonOptions!.boxShadowOffset,
                 )
               ]
             : null,
       );
   standardBorderRadius() => BorderRadius.all(
-      Radius.circular(widget.webButtonOptionalFields!.buttonRadius ?? 0));
-  standardBorder() => widget.webButtonOptionalFields!.buttonBorderColor == null
+      Radius.circular(widget.flutterWebButtonOptions!.buttonRadius ?? 0));
+  standardBorder() => widget.flutterWebButtonOptions!.buttonBorderColor == null
       ? const Border.fromBorderSide(BorderSide.none)
       : Border.all(
-          color: widget.webButtonOptionalFields!.buttonBorderColor!,
-          width: widget.webButtonOptionalFields!.buttonBorderWidth ?? 1.0);
+          color: widget.flutterWebButtonOptions!.buttonBorderColor!,
+          width: widget.flutterWebButtonOptions!.buttonBorderWidth ?? 1.0);
   standardTextStyle() => TextStyle(
-        color: widget.webButtonOptionalFields!.textColor ?? textColor,
-        fontFamily: widget.webButtonOptionalFields!.fontFamily ?? '',
-        fontSize: widget.webButtonOptionalFields!.fontSize ?? 16,
+        color: widget.flutterWebButtonOptions!.textColor ?? textColor,
+        fontFamily: widget.flutterWebButtonOptions!.fontFamily ?? '',
+        fontSize: widget.flutterWebButtonOptions!.fontSize ?? 16,
       );
-  standardBoxShadow() => widget.webButtonOptionalFields!.boxShadowColor != null
+  standardBoxShadow() => widget.flutterWebButtonOptions!.boxShadowColor != null
       ? [
           BoxShadow(
-            color: widget.webButtonOptionalFields!.boxShadowColor!,
-            spreadRadius: widget.webButtonOptionalFields!.spreadRadius ?? -5,
-            blurRadius: widget.webButtonOptionalFields!.blurRadius ?? 7,
-            offset: widget.webButtonOptionalFields!.boxShadowOffset,
+            color: widget.flutterWebButtonOptions!.boxShadowColor!,
+            spreadRadius: widget.flutterWebButtonOptions!.spreadRadius ?? -5,
+            blurRadius: widget.flutterWebButtonOptions!.blurRadius ?? 7,
+            offset: widget.flutterWebButtonOptions!.boxShadowOffset,
           )
         ]
       : null;

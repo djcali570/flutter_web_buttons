@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class WebButtonOptionalFields {
+class FlutterWebButtonOptions {
   double? buttonWidth;
   double? buttonHeight;
   Color? buttonBackgroundColor;
@@ -17,7 +17,7 @@ class WebButtonOptionalFields {
   double? blurRadius;
   Offset boxShadowOffset;
 
-  WebButtonOptionalFields({
+  FlutterWebButtonOptions({
     this.buttonWidth,
     this.buttonHeight = 50,
     this.buttonBackgroundColor,
@@ -36,11 +36,11 @@ class WebButtonOptionalFields {
   });
 }
 
-class WebButtonIconOptionalFields {
+class FlutterWebIconOptions {
   double? size;
   Color? color;
   EdgeInsetsGeometry? padding;
-  WebButtonIconOptionalFields({
+  FlutterWebIconOptions({
     this.size,
     this.color,
     this.padding = const EdgeInsets.all(10),

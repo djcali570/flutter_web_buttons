@@ -1,4 +1,4 @@
-enum WebButtonList {
+enum FlutterWebButtonList {
   simple,
   textScroll,
   backgroundColorChange,
@@ -9,7 +9,7 @@ enum WebButtonList {
   socialIcon,
 }
 
-enum WebButtonSocialIcon {
+enum FlutterWebButtonSocialIcon {
   facebook,
   facebookSquare,
   flickr,
