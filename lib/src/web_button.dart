@@ -129,7 +129,7 @@ class _WebButtonState extends State<WebButton>
         reverseCurve: Curves.easeInOutQuint);
 
     ///Animations
-    
+
     /// These animations are only for non icon buttons.
     if (widget.webButtonOptionalFields != null) {
       _backgroundColorAnimation = ColorTween(
@@ -192,14 +192,33 @@ class _WebButtonState extends State<WebButton>
 
   @override
   Widget build(BuildContext context) {
-    
+    if (widget.webButtonOptionalFields != null) {
+      debugPrint('optional fields is not null');
+      if (widget.webButtonOptionalFields!.buttonPadding != null) {
+        debugPrint('optional fields has a padding of ' +
+            widget.webButtonOptionalFields!.buttonPadding!.toString());
+      }
+    } else if (widget.webButtonIconOptionalFields != null) {
+      debugPrint('icon optional fields is not null');
+      if (widget.webButtonIconOptionalFields!.padding != null) {
+        debugPrint('icon optional fields has a padding of ' +
+            widget.webButtonIconOptionalFields!.padding!.toString());
+      } else {
+        debugPrint('icon optional fields padding is NULL');
+      }
+    } else {
+      debugPrint('optional fields is  NULL');
+    }
+
     return
 
         /// If optional fields are not required by the button, set default padding.
         Padding(
       padding: widget.webButtonOptionalFields != null
           ? widget.webButtonOptionalFields!.buttonPadding!
-          : const EdgeInsets.all(0),
+          : widget.webButtonIconOptionalFields != null
+              ? widget.webButtonIconOptionalFields!.padding!
+              : EdgeInsets.zero,
 
       /// A mouse region is used here so that on hover you can start and reverse the animation.
       child: MouseRegion(
@@ -427,8 +446,12 @@ class _WebButtonState extends State<WebButton>
           ),
         ),
       );
-  static getSocialButton(IconData icon) => SizedBox(
-        child: Icon(icon),
+  getSocialButton(IconData icon) => SizedBox(
+        child: Icon(
+          icon,
+          color: widget.webButtonIconOptionalFields!.color ?? darkColor,
+          size: widget.webButtonIconOptionalFields!.size ?? 32,
+        ),
       );
 
   /// Default decorations are used by multiple buttons so these eliminate repeated code.
