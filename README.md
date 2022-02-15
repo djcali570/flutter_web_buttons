@@ -13,11 +13,12 @@ and the Flutter guide for
 
 # Flutter Web Buttons
 
-A quick way to add beautiful fully customizable animated buttons targeted for the web.
+A quick way to add a growing list of customizable flat or animated buttons to your app.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Each button features it's own constructor with plenty of options for customization.
+
 
 ## Installation
 
