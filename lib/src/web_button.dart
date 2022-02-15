@@ -192,28 +192,9 @@ class _WebButtonState extends State<WebButton>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.webButtonOptionalFields != null) {
-      debugPrint('optional fields is not null');
-      if (widget.webButtonOptionalFields!.buttonPadding != null) {
-        debugPrint('optional fields has a padding of ' +
-            widget.webButtonOptionalFields!.buttonPadding!.toString());
-      }
-    } else if (widget.webButtonIconOptionalFields != null) {
-      debugPrint('icon optional fields is not null');
-      if (widget.webButtonIconOptionalFields!.padding != null) {
-        debugPrint('icon optional fields has a padding of ' +
-            widget.webButtonIconOptionalFields!.padding!.toString());
-      } else {
-        debugPrint('icon optional fields padding is NULL');
-      }
-    } else {
-      debugPrint('optional fields is  NULL');
-    }
 
-    return
-
-        /// If optional fields are not required by the button, set default padding.
-        Padding(
+    // Set the padding for button or icon button. Since both paddings have a default setting we avoid null values.
+    return Padding(
       padding: widget.webButtonOptionalFields != null
           ? widget.webButtonOptionalFields!.buttonPadding!
           : widget.webButtonIconOptionalFields != null
