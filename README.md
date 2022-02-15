@@ -11,6 +11,12 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
+<style>
+#images {
+  white-space: nowrap;
+}
+</style>
+
 # Flutter Web Buttons
 
 A quick way to add a growing list of customizable flat or animated buttons to your app.
@@ -40,10 +46,21 @@ FlutterWebButton.textScroll(
   animationDuration: const Duration(milliseconds: 500),
   flutterWebButtonOptions: FlutterWebButtonOptions(
     buttonWidth: 200,
-  ),
-)
+),
+
+FlutterWebButton.backgroundFill(
+  'Fill Background',
+  onPressed: () {},
+  flutterWebButtonOptions: FlutterWebButtonOptions(
+    buttonWidth: 200,
+    buttonRadius: 30,
+),
+
 ```
-![textscroll](https://user-images.githubusercontent.com/60490869/153996197-e9ba2c17-32b5-4e21-9a3b-c18fcbf2cd31.gif)
+<div id="images" align="center">
+  <img src ="https://user-images.githubusercontent.com/60490869/153996197-e9ba2c17-32b5-4e21-9a3b-c18fcbf2cd31.gif">
+  <img src ="https://user-images.githubusercontent.com/60490869/153997598-35c970c8-2832-4afb-b3bb-aabd33e67b93.gif">
+</div>
 
 
 ## Additional information
