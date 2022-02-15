@@ -19,6 +19,7 @@ A quick way to add a growing list of customizable flat or animated buttons to yo
 
 * Each button features it's own constructor with plenty of options for customization.
 * Includes most commonly used Social Icons
+* Buttons can be used as a Hero
 
 ## Installation
 
@@ -123,6 +124,7 @@ FlutterWebButton.raiseText(
 
 | Blur Radius |  |
 | Shadow Offset |  |
+| Hero Tag |  |
 
 
 <!-- Links -->
