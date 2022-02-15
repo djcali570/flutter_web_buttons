@@ -34,7 +34,7 @@ dependencies:
 ```dart
 import 'package:flutter_web_buttons/flutter_web_buttons.dart';
 
-WebButton.textScroll(
+FlutterWebButton.textScroll(
   'Text Scroll',
   onPressed: () {},
   animationDuration: const Duration(milliseconds: 500),
@@ -43,6 +43,8 @@ WebButton.textScroll(
   ),
 )
 ```
+![textscroll](https://user-images.githubusercontent.com/60490869/153996197-e9ba2c17-32b5-4e21-9a3b-c18fcbf2cd31.gif)
+
 
 ## Additional information
 
