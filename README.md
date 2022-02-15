@@ -56,9 +56,9 @@ FlutterWebButton.backgroundFill(
   <img src ="https://user-images.githubusercontent.com/60490869/153997598-35c970c8-2832-4afb-b3bb-aabd33e67b93.gif">
 </div>
 
-
+<!-- 
 ## Additional information
 
 TODO: Tell users more about the package: where to find more information, how to 
 contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+from the package authors, and more. -->
