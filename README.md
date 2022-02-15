@@ -34,7 +34,7 @@ dependencies:
 import 'package:flutter_web_buttons/flutter_web_buttons.dart';
 
 WebButton.textScroll(
-  'Simple Button',
+  'Text Scroll',
   onPressed: () {},
   animationDuration: const Duration(milliseconds: 500),
   flutterWebButtonOptions: FlutterWebButtonOptions(
