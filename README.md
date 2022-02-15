@@ -19,6 +19,15 @@ A quick way to add beautiful fully customizable animated buttons targeted for th
 
 TODO: List what your package can do. Maybe include images, gifs, or videos.
 
+## Installation
+
+In the `dependencies:` section of your `pubspec.yaml`, add the following line:
+
+```yaml
+dependencies:
+  flutter_web_buttons: <latest_version>
+```
+
 ## Getting started
 
 TODO: List prerequisites and provide or point to information on how to
