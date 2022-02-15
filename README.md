@@ -75,9 +75,26 @@ FlutterWebButton.raiseText(
 
 ![raisetext](https://user-images.githubusercontent.com/60490869/154002057-41390fa9-1feb-4afc-8489-16ca2b38eea9.gif)
 
-<!-- 
+
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more. -->
+### Customizations
+
+| FlutterWebButtonOptions | FlutterWebIconButtonOptions |
+| --- | --- |
+| Height | Icon Size |
+| Width | Icon Color |
+| Background Color | Padding |
+| Text Color |  |
+| Font Size |  |
+| Font Family |  |
+| Padding |  |
+| Eliminate Decoration |  |
+| Button Radius |  |
+| Border Color |  |
+| Border Width |  |
+| Shadow Color |  |
+| Spread Radius |  |
+| Blur Radius |  |
+| Shadow Offset |  |
+
