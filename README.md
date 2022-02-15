@@ -31,7 +31,7 @@ dependencies:
 ## Usage
 
 ```dart
-import 'package:web_buttons/web_buttons.dart';
+import 'package:flutter_web_buttons/flutter_web_buttons.dart';
 
 WebButton.textScroll(
   'Text Scroll',
