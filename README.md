@@ -111,8 +111,8 @@ FlutterWebButton.raiseText(
 | Height | Icon Size |
 | Width | Icon Color |
 | Background Color | Padding |
-| Text Color |  |
-| Font Size |  |
+| Text Color | Hero Tag |
+| Font Size | IsHeroWidget |
 | Font Family |  |
 | Padding |  |
 | Eliminate Decoration |  |
@@ -121,10 +121,10 @@ FlutterWebButton.raiseText(
 | Border Width |  |
 | Shadow Color |  |
 | Spread Radius |  |
-
 | Blur Radius |  |
 | Shadow Offset |  |
 | Hero Tag |  |
+| IsHeroWidget |  |
 
 
 <!-- Links -->
