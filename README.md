@@ -10,15 +10,15 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
-
-# Flutter Web Buttons
+[![BuymMeACoffee][buy_me_a_coffee_badge]][buymeacoffee]
+# flutter_web_buttons
 
 A quick way to add a growing list of customizable flat or animated buttons to your app.
 
 ## Features
 
-Each button features it's own constructor with plenty of options for customization.
-
+* Each button features it's own constructor with plenty of options for customization.
+* Includes most commonly used Social Icons
 
 ## Installation
 
@@ -29,27 +29,32 @@ dependencies:
   flutter_web_buttons: <latest_version>
 ```
 
-## Usage
+In your library add the following import:
 
 ```dart
 import 'package:flutter_web_buttons/flutter_web_buttons.dart';
+```
 
+## Getting Started
+
+```dart
 FlutterWebButton.textScroll(
   'Text Scroll',
   onPressed: () {},
   animationDuration: const Duration(milliseconds: 500),
   flutterWebButtonOptions: FlutterWebButtonOptions(
-    buttonWidth: 200,
+      buttonWidth: 200,
+      buttonRadius: 30,
+      textColor: Colors.pink,
+      buttonBackgroundColor: Colors.transparent,
+      buttonBorderColor: Colors.pink),
 ),
 
 ```
-![textscroll](https://user-images.githubusercontent.com/60490869/153996197-e9ba2c17-32b5-4e21-9a3b-c18fcbf2cd31.gif)
 
 ```dart
-import 'package:flutter_web_buttons/flutter_web_buttons.dart';
-
 FlutterWebButton.backgroundFill(
-  'Fill Background',
+  'Background Fill',
   onPressed: () {},
   flutterWebButtonOptions: FlutterWebButtonOptions(
     buttonWidth: 200,
@@ -57,8 +62,6 @@ FlutterWebButton.backgroundFill(
 ),
 
 ```
-![bgfill](https://user-images.githubusercontent.com/60490869/153997598-35c970c8-2832-4afb-b3bb-aabd33e67b93.gif)
-
 
 ```dart
 FlutterWebButton.raiseText(
@@ -72,13 +75,24 @@ FlutterWebButton.raiseText(
 ),
 
 ```
+## Examples
 
-![raisetext](https://user-images.githubusercontent.com/60490869/154002057-41390fa9-1feb-4afc-8489-16ca2b38eea9.gif)
 
+### Text Scroll
 
-# Additional information
+![textscroll][textscroll]
 
-### Animation Customizations
+### Background Fill
+
+![backgroundfill][backgroundfill]
+
+### Raise Text
+
+![raisetext4][raisetext4]
+
+# Button Customization Properties
+
+### Animation Properties
 
 #### Some properties are not applicable for all buttons.
 
@@ -89,7 +103,7 @@ FlutterWebButton.raiseText(
 | Animated Background Color | Button Specific |
 
 
-### Decoration Customizations
+### Decoration Properties
 
 | FlutterWebButtonOptions | FlutterWebIconButtonOptions |
 | --- | --- |
@@ -106,6 +120,14 @@ FlutterWebButton.raiseText(
 | Border Width |  |
 | Shadow Color |  |
 | Spread Radius |  |
+
 | Blur Radius |  |
 | Shadow Offset |  |
 
+
+<!-- Links -->
+[raisetext4]:https://user-images.githubusercontent.com/60490869/154080497-ced74f8d-7093-4352-9f56-2586fcfb8edc.gif
+[backgroundfill]:https://user-images.githubusercontent.com/60490869/154086649-006e9772-d0e3-455f-9403-ffad0b41a658.gif
+[textscroll]:https://user-images.githubusercontent.com/60490869/154091366-62667363-d1e3-4abe-a754-4aa5647beef6.gif
+[buy_me_a_coffee_badge]: https://img.buymeacoffee.com/button-api/?text=Buy%20Me%20A%20Coffee&emoji=&slug=djcali570&button_colour=29b6f6&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00
+[buymeacoffee]:https://www.buymeacoffee.com/djcali
