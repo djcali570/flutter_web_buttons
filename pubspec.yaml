@@ -2,7 +2,7 @@ name: flutter_web_buttons
 description: Add quick buttons to your app.
 version: 0.0.1
 maintainer: J.Cali (@djcali570)
-homepage: https://github.com/djcali570/web_buttons
+homepage: https://github.com/djcali570/flutter_web_buttons
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
