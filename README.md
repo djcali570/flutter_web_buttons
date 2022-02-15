@@ -76,9 +76,20 @@ FlutterWebButton.raiseText(
 ![raisetext](https://user-images.githubusercontent.com/60490869/154002057-41390fa9-1feb-4afc-8489-16ca2b38eea9.gif)
 
 
-## Additional information
+# Additional information
 
-### Customizations
+### Animation Customizations
+
+#### Some properties are not applicable for all buttons.
+
+| Animation Specific Property | Availabilty |
+| --- | -- |
+| Animation Duration | All Animated Buttons |
+| Animated Text Color | Button Specific |
+| Animated Background Color | Button Specific |
+
+
+### Decoration Customizations
 
 | FlutterWebButtonOptions | FlutterWebIconButtonOptions |
 | --- | --- |
