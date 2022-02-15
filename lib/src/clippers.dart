@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class PillClipper extends CustomClipper<Path> {
   final double chosenRadius;
   PillClipper(this.chosenRadius);

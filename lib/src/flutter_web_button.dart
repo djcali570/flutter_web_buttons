@@ -216,14 +216,22 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
         /// Gesture detector is used to handle the onPressed event.
         child: GestureDetector(
-          onTap: widget.onPressed,
-          child: widget.flutterWebButtonOptions!.heroTag != null
-              ? Hero(
-                  tag: widget.flutterWebButtonOptions!.heroTag!,
-                  child: getButton(),
-                )
-              : getButton(),
-        ),
+            onTap: widget.onPressed,
+
+            /// Decide if using hero widget.
+            child: (widget.flutterWebButtonOptions != null)
+                ? (widget.flutterWebButtonOptions!.heroTag != null)
+                    ? Hero(
+                        tag: widget.flutterWebButtonOptions!.heroTag!,
+                        child: getButton())
+                    : getButton()
+                : (widget.flutterWebIconButtonOptions != null)
+                    ? (widget.flutterWebIconButtonOptions!.heroTag != null)
+                        ? Hero(
+                            tag: widget.flutterWebIconButtonOptions!.heroTag!,
+                            child: getButton())
+                        : getButton()
+                    : getButton()),
       ),
     );
   }
