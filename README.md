@@ -42,6 +42,12 @@ FlutterWebButton.textScroll(
     buttonWidth: 200,
 ),
 
+```
+![textscroll](https://user-images.githubusercontent.com/60490869/153996197-e9ba2c17-32b5-4e21-9a3b-c18fcbf2cd31.gif)
+
+```dart
+import 'package:flutter_web_buttons/flutter_web_buttons.dart';
+
 FlutterWebButton.backgroundFill(
   'Fill Background',
   onPressed: () {},
@@ -51,10 +57,23 @@ FlutterWebButton.backgroundFill(
 ),
 
 ```
-<div id="images" align="center" style="white-space: no-wrap">
-  <img src ="https://user-images.githubusercontent.com/60490869/153996197-e9ba2c17-32b5-4e21-9a3b-c18fcbf2cd31.gif">
-  <img src ="https://user-images.githubusercontent.com/60490869/153997598-35c970c8-2832-4afb-b3bb-aabd33e67b93.gif">
-</div>
+![bgfill](https://user-images.githubusercontent.com/60490869/153997598-35c970c8-2832-4afb-b3bb-aabd33e67b93.gif)
+
+
+```dart
+FlutterWebButton.raiseText(
+  'Raise Text | Shadow',
+  onPressed: () {},
+  flutterWebButtonOptions: FlutterWebButtonOptions(
+    buttonWidth: 200,
+    buttonRadius: 8,
+    boxShadowColor: Colors.grey.withOpacity(0.8),
+  ),
+),
+
+```
+
+![raisetext](https://user-images.githubusercontent.com/60490869/154002057-41390fa9-1feb-4afc-8489-16ca2b38eea9.gif)
 
 <!-- 
 ## Additional information
