@@ -39,8 +39,10 @@ class WebButtonOptionalFields {
 class WebButtonIconOptionalFields {
   double? size;
   Color? color;
+  EdgeInsetsGeometry? padding;
   WebButtonIconOptionalFields({
     this.size,
     this.color,
+    this.padding = const EdgeInsets.all(10),
   });
 }
