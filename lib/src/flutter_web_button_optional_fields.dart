@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class FlutterWebButtonOptions {
+  /// Width of the button. If left null it will use the max available space.
   double? buttonWidth;
+  /// Height of the button. Default value of 50.
   double? buttonHeight;
   Color? buttonBackgroundColor;
   Color? textColor;
@@ -17,6 +19,7 @@ class FlutterWebButtonOptions {
   double? blurRadius;
   Offset boxShadowOffset;
   String? heroTag;
+  bool? isHeroWidget;
 
   FlutterWebButtonOptions({
     this.buttonWidth,
@@ -34,7 +37,13 @@ class FlutterWebButtonOptions {
     this.spreadRadius,
     this.blurRadius,
     this.boxShadowOffset = const Offset(0.0, 8.0),
+
+    /// These properties are only used if using a [Hero] widget.
+    /// The hero tag must be unique to the widget tree.
     this.heroTag,
+
+    /// If this button will be wrapped in a [Hero] set this to true. Used for nesting multiple hero widgets.
+    this.isHeroWidget = false,
   });
 }
 
@@ -42,9 +51,18 @@ class FlutterWebIconOptions {
   double? size;
   Color? color;
   EdgeInsetsGeometry? padding;
+  String? heroTag;
+  bool? isHeroWidget;
   FlutterWebIconOptions({
     this.size,
     this.color,
     this.padding = const EdgeInsets.all(10),
+
+    /// These properties are only used if using a [Hero] widget.
+    /// The hero tag must be unique to the widget tree.
+    this.heroTag,
+
+    /// If this button will be wrapped in a [Hero] set this to true. Used for nesting multiple hero widgets.
+    this.isHeroWidget = false,
   });
 }
