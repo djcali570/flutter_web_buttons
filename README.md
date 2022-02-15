@@ -28,27 +28,19 @@ dependencies:
   flutter_web_buttons: <latest_version>
 ```
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-![movie3](https://user-images.githubusercontent.com/60490869/153766304-9e7daff5-c9dc-4418-9bd0-43c6335ba82d.gif)
-
 ```dart
+import 'package:web_buttons/web_buttons.dart';
+
 WebButton.textScroll(
   'Text Scroll',
   onPressed: () {},
   animationDuration: const Duration(milliseconds: 500),
-  optionalFields: WebButtonOptionalFields(
+  webButtonOptionalFields: WebButtonOptionalFields(
     buttonWidth: 200,
   ),
-),
+);
 ```
 
 ## Additional information
