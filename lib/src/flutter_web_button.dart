@@ -16,6 +16,8 @@ class FlutterWebButton extends StatefulWidget {
   FlutterWebIconOptions? flutterWebIconButtonOptions;
 
   /// Button Constructors
+  ///
+  /// The simplest form of a button. No animations.
   FlutterWebButton.simple(
     this.text, {
     Key? key,
@@ -24,6 +26,7 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.simple,
         super(key: key);
 
+  /// The text will scroll to the top and fade out and reappear from the bottom back into position.
   FlutterWebButton.textScroll(
     this.text, {
     Key? key,
@@ -33,6 +36,7 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.textScroll,
         super(key: key);
 
+  /// Animates the background color only.
   FlutterWebButton.backgroundColorChange(
     this.text, {
     Key? key,
@@ -93,6 +97,7 @@ class FlutterWebButton extends StatefulWidget {
 class _FlutterWebButtonState extends State<FlutterWebButton>
     with SingleTickerProviderStateMixin {
   /// Animations and Controllers
+
   late AnimationController _controller;
   late Animation<double> _textScrollAnimation;
   late Animation<double> _textScrollOpacityAnimation;
@@ -102,8 +107,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   late Animation<double> _raiseTextAnimation;
   late Animation<double> _backgroundFill;
 
-  // final Color darkColor = Colors.blue;
-  // final Color? lightColor = Colors.blue[100];
+  /// These colors are used as the default colors if not changed.
+
   final Color darkColor = Colors.pink;
   final Color? lightColor = Colors.pink[100];
   final Color textColor = Colors.white;
@@ -131,6 +136,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
     ///Animations
 
     /// These animations are only for non icon buttons.
+    /// Checking to see if using a button or an icon button.
     if (widget.flutterWebButtonOptions != null) {
       _backgroundColorAnimation = ColorTween(
               begin: widget.flutterWebButtonOptions!.buttonBackgroundColor ??
@@ -220,13 +226,13 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
             /// Decide if using hero widget.
             child: (widget.flutterWebButtonOptions != null)
-                ? (widget.flutterWebButtonOptions!.heroTag != null)
+                ? (widget.flutterWebButtonOptions!.isHeroWidget!)
                     ? Hero(
                         tag: widget.flutterWebButtonOptions!.heroTag!,
                         child: getButton())
                     : getButton()
                 : (widget.flutterWebIconButtonOptions != null)
-                    ? (widget.flutterWebIconButtonOptions!.heroTag != null)
+                    ? (widget.flutterWebIconButtonOptions!.isHeroWidget!)
                         ? Hero(
                             tag: widget.flutterWebIconButtonOptions!.heroTag!,
                             child: getButton())
