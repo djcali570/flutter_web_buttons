@@ -16,6 +16,7 @@ class FlutterWebButtonOptions {
   double? spreadRadius;
   double? blurRadius;
   Offset boxShadowOffset;
+  String? heroTag;
 
   FlutterWebButtonOptions({
     this.buttonWidth,
@@ -33,6 +34,7 @@ class FlutterWebButtonOptions {
     this.spreadRadius,
     this.blurRadius,
     this.boxShadowOffset = const Offset(0.0, 8.0),
+    this.heroTag,
   });
 }
 
