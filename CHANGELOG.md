@@ -2,6 +2,7 @@
 
 * Added grow button
 * Added icon grow button
+* Added social icon grow button
 * Updated example project with buttons
 
 ## 0.0.4
