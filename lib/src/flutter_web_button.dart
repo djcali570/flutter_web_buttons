@@ -36,6 +36,12 @@ class FlutterWebButton extends StatefulWidget {
   /// Using a separate constructor for properties that are not required to display the icon button.
   FlutterWebIconOptions? flutterWebIconButtonOptions;
 
+  /// Using a separate constructor for text only properties that are not required to display the text.
+  FlutterTextOptions? flutterTextOptions;
+
+  /// Used to align the widget being animated on the cross axis.
+  CrossAxisAlignment? animationCrossAxisAlignment;
+
   /// Button Constructors
   ///
   /// The simplest form of a button. No animations.
@@ -86,6 +92,7 @@ class FlutterWebButton extends StatefulWidget {
     required this.onPressed,
     required this.flutterWebButtonOptions,
     this.animationDuration,
+    this.textAnimatedColor,
   })  : _buttonType = FlutterWebButtonList.raiseText,
         super(key: key);
 
@@ -147,6 +154,18 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.socialIconGrow,
         super(key: key);
 
+  /// Display text with an animated underline effect.
+  FlutterWebButton.textUnderline(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.flutterTextOptions,
+    this.animationDuration,
+    this.textAnimatedColor,
+    this.animationCrossAxisAlignment,
+  })  : _buttonType = FlutterWebButtonList.textUnderline,
+        super(key: key);
+
   /// Button Type variable thats gets assigned in the constructor.
   final FlutterWebButtonList _buttonType;
 
@@ -156,6 +175,9 @@ class FlutterWebButton extends StatefulWidget {
 
 class _FlutterWebButtonState extends State<FlutterWebButton>
     with SingleTickerProviderStateMixin {
+  /// Global key used for text animation.
+  final GlobalKey _textKey = GlobalKey();
+
   /// Main animation controller
   late AnimationController _controller;
 
@@ -183,11 +205,17 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   /// Used to make the button grow and shrink
   late Animation<double> _grow;
 
+  /// A curve animation.
+  late CurvedAnimation _curvedAnimation;
+
   /// These colors are used as the default colors if not changed.
   final Color darkColor = Colors.pink;
   final Color? lightColor = Colors.pink[100];
   final Color textColor = Colors.white;
   final Color darkTextColor = Colors.pink;
+
+  /// Some variables used so we can reuse animations
+  late Size _textSize;
 
   @override
   void initState() {
@@ -198,7 +226,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
             widget.animationDuration ?? const Duration(milliseconds: 300));
 
     /// Curves
-    final curvedAnimation = CurvedAnimation(
+    _curvedAnimation = CurvedAnimation(
         parent: _controller,
         curve: Curves.easeIn,
         reverseCurve: Curves.easeOut);
@@ -217,23 +245,18 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               begin: widget.flutterWebButtonOptions!.buttonBackgroundColor ??
                   darkColor,
               end: widget.backgroundAnimatedColor ?? lightColor)
-          .animate(curvedAnimation);
+          .animate(_curvedAnimation);
 
       _textColorAnimation = ColorTween(
               begin: widget.flutterWebButtonOptions!.textColor ?? textColor,
               end: widget.textAnimatedColor ?? Colors.white70)
-          .animate(curvedAnimation);
+          .animate(_curvedAnimation);
       _textColorAnimationNoCurve = ColorTween(
               begin: widget.flutterWebButtonOptions!.textColor ?? darkTextColor,
               end: widget.textAnimatedColor ?? textColor)
           .animate(_controller);
       _raiseTextAnimation =
-          Tween<double>(begin: 0.0, end: -4).animate(curvedAnimation);
-      _backgroundFill = Tween<double>(
-              begin: 0,
-              end: widget.flutterWebButtonOptions!.buttonWidth ??
-                  double.infinity)
-          .animate(curvedAnimation);
+          Tween<double>(begin: 0.0, end: -4).animate(_curvedAnimation);
 
       /// Sequence Animations for non icon buttons
       _textScrollAnimation = TweenSequence(<TweenSequenceItem<double>>[
@@ -270,20 +293,41 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
     /// These animations are for buttons or icon buttons
     _grow = Tween<double>(begin: 1.0, end: widget.growAmount)
-        .animate(curvedAnimation);
+        .animate(_curvedAnimation);
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Get the size of the text.
+    // This is used for predetermining the size so the underline animation will stretch to the size of the text.
+    // We first have to null check in case the underline animation is being used or not.
+    widget.flutterTextOptions != null
+        ? _textSize = (TextPainter(
+                text: TextSpan(
+                  text: widget.text,
+                  style: TextStyle(
+                    fontSize: widget.flutterTextOptions!.fontSize ?? 16,
+                    fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
+                  ),
+                ),
+                maxLines: 1,
+                textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                textDirection: TextDirection.ltr)
+              ..layout())
+            .size
+        : _textSize = Size.zero;
+
     // Set the padding for button or icon button. Since both paddings have a default setting we avoid null values.
     return Padding(
       padding: widget.flutterWebButtonOptions != null
           ? widget.flutterWebButtonOptions!.buttonPadding!
           : widget.flutterWebIconButtonOptions != null
               ? widget.flutterWebIconButtonOptions!.padding!
-              : EdgeInsets.zero,
+              : widget.flutterTextOptions != null
+                  ? widget.flutterTextOptions!.padding!
+                  : EdgeInsets.zero,
 
       /// A mouse region is used here so that on hover you can start and reverse the animation.
       child: MouseRegion(
@@ -344,6 +388,17 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
       case FlutterWebButtonList.raiseText:
         return getRaiseTextButton();
       case FlutterWebButtonList.backgroundFill:
+
+        /// Set the animated width to the button width.
+        setState(() {
+          _backgroundFill = Tween<double>(
+                  begin: 0,
+                  end: widget.flutterWebButtonOptions!.buttonWidth ??
+                      double.infinity)
+              .animate(_curvedAnimation);
+        });
+
+        /// Get the button
         return getBackgroundFillButton();
       case FlutterWebButtonList.socialIcon:
         return getSocialButton(
@@ -355,6 +410,16 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         return getButtonGrow();
       case FlutterWebButtonList.iconGrow:
         return getIconGrow(widget.icon!);
+      case FlutterWebButtonList.textUnderline:
+
+        /// Set the animated width to the text width.
+        setState(() {
+          _backgroundFill = Tween<double>(begin: 0, end: _textSize.width)
+              .animate(_curvedAnimation);
+        });
+
+        /// Get the button
+        return getTextUnderlineButton();
       default:
         return const SizedBox();
     }
@@ -456,6 +521,37 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               ),
             )),
       );
+
+  getTextUnderlineButton() => SizedBox(
+        child: Column(
+          crossAxisAlignment:
+              widget.animationCrossAxisAlignment ?? CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.text!,
+              style: TextStyle(
+                color: widget.flutterTextOptions!.textColor ?? darkColor,
+                fontSize: widget.flutterTextOptions!.fontSize ?? 16,
+                fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
+              ),
+              key: _textKey,
+            ),
+            AnimatedBuilder(
+                animation: _backgroundFill,
+                builder: (context, _) {
+                  return Transform.scale(
+                      scaleX: 1,
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        color: widget.textAnimatedColor ?? Colors.pink,
+                        width: _backgroundFill.value,
+                        height: 2,
+                      ));
+                }),
+          ],
+        ),
+      );
+
   getRaiseTextButton() => Container(
         width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
         height: widget.flutterWebButtonOptions!.buttonHeight,
