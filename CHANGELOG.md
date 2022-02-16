@@ -1,6 +1,7 @@
 ## 0.0.4
 
 * Added code comments
+* Updated example project with buttons
 
 ## 0.0.3
 
