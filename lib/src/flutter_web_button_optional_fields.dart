@@ -67,3 +67,25 @@ class FlutterWebIconOptions {
     this.isHeroWidget = false,
   });
 }
+
+class FlutterTextOptions {
+  Color? textColor;
+  double? fontSize;
+  String? fontFamily;
+  EdgeInsetsGeometry? padding;
+  String? heroTag;
+  bool? isHeroWidget;
+  FlutterTextOptions({
+    this.textColor,
+    this.fontSize,
+    this.fontFamily,
+    this.padding = const EdgeInsets.all(10),
+
+    /// These properties are only used if using a [Hero] widget.
+    /// The hero tag must be unique to the widget tree.
+    this.heroTag,
+
+    /// If this button will be wrapped in a [Hero] set this to true. Used for nesting multiple hero widgets.
+    this.isHeroWidget = false,
+  });
+}
