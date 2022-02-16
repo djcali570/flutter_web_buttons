@@ -84,6 +84,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlutterWebButton.socialIconGrow(
+                  flutterWebButtonSocialIcon: FlutterWebButtonSocialIcon.github,
+                  onPressed: () {},
+                  flutterWebIconButtonOptions: FlutterWebIconOptions(),
+                ),
+                FlutterWebButton.grow(
+                  'Button Grow',
+                  onPressed: () {},
+                  flutterWebButtonOptions: FlutterWebButtonOptions(
+                    buttonWidth: 200,
+                  ),
+                ),
+                FlutterWebButton.socialIconGrow(
+                  flutterWebButtonSocialIcon:
+                      FlutterWebButtonSocialIcon.snapchat,
+                  onPressed: () {},
+                  growAmount: 2,
+                  flutterWebIconButtonOptions:
+                      FlutterWebIconOptions(color: Colors.yellow),
+                ),
+              ],
+            )
           ],
         ),
       ),
