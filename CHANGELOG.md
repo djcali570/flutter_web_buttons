@@ -1,3 +1,9 @@
+## 0.0.5
+
+* Added grow button
+* Added icon grow button
+* Updated example project with buttons
+
 ## 0.0.4
 
 * Added code comments
