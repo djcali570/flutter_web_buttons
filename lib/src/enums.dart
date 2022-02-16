@@ -1,12 +1,13 @@
 enum FlutterWebButtonList {
-  simple,
-  textScroll,
   backgroundColorChange,
-  raiseText,
-  textColorChange,
   backgroundFill,
-  lightUpDots,
+  buttonGrow,
+  raiseText,
+  simple,
   socialIcon,
+  socialIconGrow,
+  textColorChange,
+  textScroll,
 }
 
 enum FlutterWebButtonSocialIcon {
