@@ -6,13 +6,28 @@ import 'package:flutter_web_buttons/src/enums.dart';
 
 // ignore: must_be_immutable
 class FlutterWebButton extends StatefulWidget {
+  /// Required callback used on button pressed.
   VoidCallback? onPressed;
+
+  /// Text displayed on the button.
   String? text;
+
+  /// Using a separate constructor for properties that are not required to display the button.
   FlutterWebButtonOptions? flutterWebButtonOptions;
+
+  /// Any animated buttons will include the option to change the animation duration.
   Duration? animationDuration;
+
+  /// Used to set the background color for the animation.
   Color? backgroundAnimatedColor;
+
+  /// Used to set the text color for the animation.
   Color? textAnimatedColor;
+
+  /// Used to show a list of enums containing built in social icons.
   FlutterWebButtonSocialIcon? flutterWebButtonSocialIcon;
+
+  /// Using a separate constructor for properties that are not required to display the icon button.
   FlutterWebIconOptions? flutterWebIconButtonOptions;
 
   /// Button Constructors
@@ -47,6 +62,7 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.backgroundColorChange,
         super(key: key);
 
+  /// Animates the text color only.
   FlutterWebButton.textColorChange(
     this.text, {
     Key? key,
@@ -57,6 +73,7 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.textColorChange,
         super(key: key);
 
+  /// Animation that bumps the text up.
   FlutterWebButton.raiseText(
     this.text, {
     Key? key,
@@ -66,6 +83,10 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.raiseText,
         super(key: key);
 
+  ///
+  /// Animated a background fill from left to right.
+  /// [FlutterWebButtonOptions.buttonRadius] does not work for this animation.
+  ///
   FlutterWebButton.backgroundFill(
     this.text, {
     Key? key,
@@ -77,6 +98,7 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.backgroundFill,
         super(key: key);
 
+  /// Display a simple social icon.
   FlutterWebButton.socialIcon({
     Key? key,
     required this.flutterWebButtonSocialIcon,
@@ -87,7 +109,6 @@ class FlutterWebButton extends StatefulWidget {
         super(key: key);
 
   /// Button Type variable thats gets assigned in the constructor.
-
   final FlutterWebButtonList _buttonType;
 
   @override
@@ -96,19 +117,31 @@ class FlutterWebButton extends StatefulWidget {
 
 class _FlutterWebButtonState extends State<FlutterWebButton>
     with SingleTickerProviderStateMixin {
-  /// Animations and Controllers
-
+  /// Main animation controller
   late AnimationController _controller;
+
+  /// Used for the text scroll animation
   late Animation<double> _textScrollAnimation;
+
+  /// Used for the opacity to fade the button out on animation.
   late Animation<double> _textScrollOpacityAnimation;
+
+  /// Used to change the background color.
   late Animation<Color?> _backgroundColorAnimation;
+
+  /// Used to change the color of the button text
   late Animation<Color?> _textColorAnimation;
+
+  /// Used to change the color of the text not using a curve.
   late Animation<Color?> _textColorAnimationNoCurve;
+
+  /// Used to bump the text up the y axis.
   late Animation<double> _raiseTextAnimation;
+
+  /// Used to perform a background fill. The animation makes the containers width from 0 to button width
   late Animation<double> _backgroundFill;
 
   /// These colors are used as the default colors if not changed.
-
   final Color darkColor = Colors.pink;
   final Color? lightColor = Colors.pink[100];
   final Color textColor = Colors.white;
@@ -209,6 +242,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
       /// A mouse region is used here so that on hover you can start and reverse the animation.
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
+
+        /// Hover events to start and reverse the animations
         onEnter: (event) {
           setState(() {
             hoverEvent(true);
@@ -224,7 +259,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         child: GestureDetector(
             onTap: widget.onPressed,
 
-            /// Decide if using hero widget.
+            /// Decide if using [hero] widget. If using a hero wrap the button with the [Hero] widget
+            /// Here we are doing some null checks to see if the hero properties are used or not.
             child: (widget.flutterWebButtonOptions != null)
                 ? (widget.flutterWebButtonOptions!.isHeroWidget!)
                     ? Hero(
@@ -248,6 +284,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   }
 
   /// Based on the constructor used, return the associated button.
+  /// This will call the method used to return the correct button.
   getButton() {
     switch (widget._buttonType) {
       case FlutterWebButtonList.simple:
@@ -270,7 +307,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
     }
   }
 
-  /// Button Types that get returned to the gesture detector.
+  /// Button methods that get returned to the gesture detector.
   getSimpleButton() => Container(
         width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
         height: widget.flutterWebButtonOptions!.buttonHeight!,
@@ -392,6 +429,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         height: widget.flutterWebButtonOptions!.buttonHeight,
 
         /// A clip path is used so the fill color does not show when using a radius button.
+        /// A radius button with a border does not produce a nice looking button.
         child: ClipPath(
           clipper:
               PillClipper(widget.flutterWebButtonOptions!.buttonRadius ?? 0),
@@ -445,6 +483,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
           ),
         ),
       );
+
+  /// A simple social button with no animation.
   getSocialButton(IconData icon) => SizedBox(
         child: Icon(
           icon,
@@ -479,18 +519,26 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               ]
             : null,
       );
+
+  /// Border radius decoration
   standardBorderRadius() => BorderRadius.all(
       Radius.circular(widget.flutterWebButtonOptions!.buttonRadius ?? 0));
+
+  /// Border decoration
   standardBorder() => widget.flutterWebButtonOptions!.buttonBorderColor == null
       ? const Border.fromBorderSide(BorderSide.none)
       : Border.all(
           color: widget.flutterWebButtonOptions!.buttonBorderColor!,
           width: widget.flutterWebButtonOptions!.buttonBorderWidth ?? 1.0);
+
+  /// Textstyle
   standardTextStyle() => TextStyle(
         color: widget.flutterWebButtonOptions!.textColor ?? textColor,
         fontFamily: widget.flutterWebButtonOptions!.fontFamily ?? '',
         fontSize: widget.flutterWebButtonOptions!.fontSize ?? 16,
       );
+
+  /// Box Shadow
   standardBoxShadow() => widget.flutterWebButtonOptions!.boxShadowColor != null
       ? [
           BoxShadow(
