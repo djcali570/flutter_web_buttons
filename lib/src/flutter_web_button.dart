@@ -24,6 +24,9 @@ class FlutterWebButton extends StatefulWidget {
   /// Used to set the text color for the animation.
   Color? textAnimatedColor;
 
+  /// Used to set grow amount
+  double? growAmount;
+
   /// Used to show a list of enums containing built in social icons.
   FlutterWebButtonSocialIcon? flutterWebButtonSocialIcon;
 
@@ -98,6 +101,17 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.backgroundFill,
         super(key: key);
 
+  /// Simple button with grow effect.
+  FlutterWebButton.grow(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.flutterWebButtonOptions,
+    this.animationDuration,
+    this.growAmount = 1.05,
+  })  : _buttonType = FlutterWebButtonList.buttonGrow,
+        super(key: key);
+
   /// Display a simple social icon.
   FlutterWebButton.socialIcon({
     Key? key,
@@ -106,6 +120,17 @@ class FlutterWebButton extends StatefulWidget {
     required this.flutterWebIconButtonOptions,
     this.animationDuration,
   })  : _buttonType = FlutterWebButtonList.socialIcon,
+        super(key: key);
+
+  /// Display a social icon with grow effect
+  FlutterWebButton.socialIconGrow({
+    Key? key,
+    required this.flutterWebButtonSocialIcon,
+    required this.onPressed,
+    required this.flutterWebIconButtonOptions,
+    this.animationDuration,
+    this.growAmount = 1.1,
+  })  : _buttonType = FlutterWebButtonList.socialIconGrow,
         super(key: key);
 
   /// Button Type variable thats gets assigned in the constructor.
@@ -140,6 +165,9 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
   /// Used to perform a background fill. The animation makes the containers width from 0 to button width
   late Animation<double> _backgroundFill;
+
+  /// Used to make the button grow and shrink
+  late Animation<double> _grow;
 
   /// These colors are used as the default colors if not changed.
   final Color darkColor = Colors.pink;
@@ -226,6 +254,10 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
       ]).animate(_controller);
     }
 
+    /// These animations are for icon buttons
+    _grow = Tween<double>(begin: 1.0, end: widget.growAmount)
+        .animate(curvedAnimation);
+
     super.initState();
   }
 
@@ -302,6 +334,11 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
       case FlutterWebButtonList.socialIcon:
         return getSocialButton(
             WebButtonIcon.getSocialIcon(widget.flutterWebButtonSocialIcon!));
+      case FlutterWebButtonList.socialIconGrow:
+        return getSocialButtonGrow(
+            WebButtonIcon.getSocialIcon(widget.flutterWebButtonSocialIcon!));
+      case FlutterWebButtonList.buttonGrow:
+        return getButtonGrow();
       default:
         return const SizedBox();
     }
@@ -492,6 +529,47 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
           size: widget.flutterWebIconButtonOptions!.size ?? 32,
         ),
       );
+
+  /// Social button icon with grow effect.
+  getSocialButtonGrow(IconData icon) => SizedBox(
+      child: AnimatedBuilder(
+          animation: _grow,
+          builder: (context, _) {
+            return Transform.scale(
+              scale: _grow.value,
+              child: Icon(
+                icon,
+                color: widget.flutterWebIconButtonOptions!.color ?? darkColor,
+                size: widget.flutterWebIconButtonOptions!.size ?? 32,
+              ),
+            );
+          }));
+
+  /// Simple button with grow effect.
+  getButtonGrow() => AnimatedBuilder(
+      animation: _grow,
+      builder: (context, _) {
+        return Transform.scale(
+          scale: _grow.value,
+          child: Container(
+            width:
+                widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
+            height: widget.flutterWebButtonOptions!.buttonHeight!,
+            decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
+                ? null
+                : standardBoxDecoration(),
+            child: Align(
+                alignment: Alignment.center,
+                child: Material(
+                  type: MaterialType.transparency,
+                  textStyle: standardTextStyle(),
+                  child: Text(
+                    widget.text!,
+                  ),
+                )),
+          ),
+        );
+      });
 
   /// Default decorations are used by multiple buttons so these eliminate repeated code.
   standardBoxDecoration() => BoxDecoration(
