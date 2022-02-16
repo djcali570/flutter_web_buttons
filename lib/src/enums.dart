@@ -2,6 +2,7 @@ enum FlutterWebButtonList {
   backgroundColorChange,
   backgroundFill,
   buttonGrow,
+  iconGrow,
   raiseText,
   simple,
   socialIcon,
