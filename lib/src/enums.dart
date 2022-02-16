@@ -9,6 +9,7 @@ enum FlutterWebButtonList {
   socialIconGrow,
   textColorChange,
   textScroll,
+  textUnderline,
 }
 
 enum FlutterWebButtonSocialIcon {
