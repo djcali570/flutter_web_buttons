@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class FlutterWebButtonOptions {
   /// Width of the button. If left null it will use the max available space.
   double? buttonWidth;
+
   /// Height of the button. Default value of 50.
   double? buttonHeight;
   Color? buttonBackgroundColor;
