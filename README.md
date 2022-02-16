@@ -105,6 +105,7 @@ FlutterWebButton.raiseText(
 | Animation Duration | All Animated Buttons |
 | Animated Text Color | Button Specific |
 | Animated Background Color | Button Specific |
+| growAmount | Grow effect buttons only |
 
 
 ### Decoration Properties
