@@ -3,7 +3,8 @@
 * Added grow button
 * Added icon grow button
 * Added social icon grow button
-* Updated example project with buttons
+* Added text underline animation
+* Updated example project with new buttons
 
 ## 0.0.4
 
