@@ -1,6 +1,5 @@
 name: flutter_web_buttons
-description: Add quick buttons to your app.
-version: 0.0.3
+description: Add fully customizable animated buttons or icon buttons easily to your web project.
 maintainer: J.Cali (@djcali570)
 homepage: https://github.com/djcali570/flutter_web_buttons
 
