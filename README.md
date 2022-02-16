@@ -11,7 +11,10 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 [![BuymMeACoffee][buy_me_a_coffee_badge]][buymeacoffee]
+
 # flutter_web_buttons
+
+[![pub package](https://img.shields.io/pub/v/flutter_web_buttons.svg)](https://pub.dev/packages/flutter_web_buttons)
 
 A quick way to add a growing list of customizable flat or animated buttons to your app.
 
