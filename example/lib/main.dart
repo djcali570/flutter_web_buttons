@@ -99,13 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     buttonWidth: 200,
                   ),
                 ),
-                FlutterWebButton.socialIconGrow(
-                  flutterWebButtonSocialIcon:
-                      FlutterWebButtonSocialIcon.snapchat,
+                FlutterWebButton.iconGrow(
+                  icon: Icons.favorite,
                   onPressed: () {},
                   growAmount: 2,
                   flutterWebIconButtonOptions:
-                      FlutterWebIconOptions(color: Colors.yellow),
+                      FlutterWebIconOptions(color: Colors.red),
                 ),
               ],
             )
