@@ -4,26 +4,38 @@ import 'package:flutter_web_buttons/flutter_web_buttons.dart';
 class FlutterWebButtonSocialIcons {
   FlutterWebButtonSocialIcons._();
 
+  /// Facebook Icons
   static const IconData facebook = IconDataBrands(0xf09a);
   static const IconData facebookSquare = IconDataBrands(0xf082);
+  /// Flickr Icon
   static const IconData flickr = IconDataBrands(0xf16e);
+  /// Github Icons
   static const IconData github = IconDataBrands(0xf09b);
   static const IconData githubSquare = IconDataBrands(0xf092);
+  /// Instagram Icons
   static const IconData instagram = IconDataBrands(0xf16d);
   static const IconData instagramSquare = IconDataBrands(0xe800);
+  /// LinkedIn Icons
   static const IconData linkedin = IconDataBrands(0xf0e1);
   static const IconData linkedinSquare = IconDataBrands(0xf08c);
+  /// Paypal Icons
   static const IconData paypal = IconDataBrands(0xf1ed);
   static const IconData paypalSquare = IconDataBrands(0xf1f4);
+  /// Pinterest Icons
   static const IconData pinterest = IconDataBrands(0xf0d2);
   static const IconData pinterestSquare = IconDataBrands(0xf0d3);
+  /// Snapchat Icons
   static const IconData snapchat = IconDataBrands(0xf2ac);
   static const IconData snapchatSquare = IconDataBrands(0xf2ad);
+  /// Soundcloud Icon
   static const IconData soundcloud = IconDataBrands(0xf1be);
+  /// Twitter Icons
   static const IconData twitter = IconDataBrands(0xf099);
   static const IconData twitterSquare = IconDataBrands(0xf081);
+  /// Vimeo Icons
   static const IconData vimeo = IconDataBrands(0xf27d);
   static const IconData vimeoSquare = IconDataBrands(0xf194);
+  /// Youtube Icons
   static const IconData youtube = IconDataBrands(0xf167);
   static const IconData youtubeSuare = IconDataBrands(0xf431);
 }
