@@ -12,6 +12,9 @@ class FlutterWebButton extends StatefulWidget {
   /// Text displayed on the button.
   String? text;
 
+  /// Icon used for custom icon animations.
+  IconData? icon;
+
   /// Using a separate constructor for properties that are not required to display the button.
   FlutterWebButtonOptions? flutterWebButtonOptions;
 
@@ -110,6 +113,17 @@ class FlutterWebButton extends StatefulWidget {
     this.animationDuration,
     this.growAmount = 1.05,
   })  : _buttonType = FlutterWebButtonList.buttonGrow,
+        super(key: key);
+
+  /// Simple icon with grow effect.
+  FlutterWebButton.iconGrow({
+    Key? key,
+    required this.icon,
+    required this.onPressed,
+    required this.flutterWebIconButtonOptions,
+    this.animationDuration,
+    this.growAmount = 1.05,
+  })  : _buttonType = FlutterWebButtonList.iconGrow,
         super(key: key);
 
   /// Display a simple social icon.
@@ -254,7 +268,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
       ]).animate(_controller);
     }
 
-    /// These animations are for icon buttons
+    /// These animations are for buttons or icon buttons
     _grow = Tween<double>(begin: 1.0, end: widget.growAmount)
         .animate(curvedAnimation);
 
@@ -335,10 +349,12 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         return getSocialButton(
             WebButtonIcon.getSocialIcon(widget.flutterWebButtonSocialIcon!));
       case FlutterWebButtonList.socialIconGrow:
-        return getSocialButtonGrow(
+        return getIconGrow(
             WebButtonIcon.getSocialIcon(widget.flutterWebButtonSocialIcon!));
       case FlutterWebButtonList.buttonGrow:
         return getButtonGrow();
+      case FlutterWebButtonList.iconGrow:
+        return getIconGrow(widget.icon!);
       default:
         return const SizedBox();
     }
@@ -415,6 +431,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               ),
             )),
       );
+
   getTextColorChangeButton() => AnimatedBuilder(
         animation: _textColorAnimation,
         builder: ((context, child) => Container(
@@ -530,8 +547,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         ),
       );
 
-  /// Social button icon with grow effect.
-  getSocialButtonGrow(IconData icon) => SizedBox(
+  /// icon with grow effect.
+  getIconGrow(IconData icon) => SizedBox(
       child: AnimatedBuilder(
           animation: _grow,
           builder: (context, _) {
