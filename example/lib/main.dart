@@ -31,6 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  GlobalKey txtKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,15 +43,33 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FlutterWebButton.backgroundColorChange(
-              'My Button',
-              onPressed: () {
-                debugPrint('Button Pressed');
-              },
-              flutterWebButtonOptions: FlutterWebButtonOptions(
-                  buttonWidth: 200,
-                  buttonRadius: 8,
-                  boxShadowColor: Colors.black.withOpacity(.8)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlutterWebButton.backgroundColorChange(
+                  'My Button',
+                  onPressed: () {
+                    debugPrint('Button Pressed');
+                  },
+                  flutterWebButtonOptions: FlutterWebButtonOptions(
+                      buttonWidth: 200,
+                      buttonRadius: 8,
+                      boxShadowColor: Colors.black.withOpacity(.8)),
+                ),
+                FlutterWebButton.backgroundFill('Background Fill',
+                    onPressed: () {},
+                    flutterWebButtonOptions:
+                        FlutterWebButtonOptions(buttonWidth: 200)),
+                FlutterWebButton.grow(
+                  'Button Grow',
+                  onPressed: () {
+                    debugPrint(txtKey.currentContext!.size!.width.toString());
+                  },
+                  flutterWebButtonOptions: FlutterWebButtonOptions(
+                    buttonWidth: 200,
+                  ),
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -61,43 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   flutterWebIconButtonOptions:
                       FlutterWebIconOptions(color: Colors.pink),
                 ),
-                FlutterWebButton.socialIcon(
-                  flutterWebButtonSocialIcon:
-                      FlutterWebButtonSocialIcon.facebook,
-                  onPressed: () {},
-                  flutterWebIconButtonOptions:
-                      FlutterWebIconOptions(color: Colors.blue),
-                ),
-                FlutterWebButton.socialIcon(
-                  flutterWebButtonSocialIcon:
-                      FlutterWebButtonSocialIcon.youtube,
-                  onPressed: () {},
-                  flutterWebIconButtonOptions:
-                      FlutterWebIconOptions(color: Colors.red),
-                ),
-                FlutterWebButton.socialIcon(
-                  flutterWebButtonSocialIcon:
-                      FlutterWebButtonSocialIcon.twitter,
-                  onPressed: () {},
-                  flutterWebIconButtonOptions:
-                      FlutterWebIconOptions(color: Colors.blue),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
                 FlutterWebButton.socialIconGrow(
                   flutterWebButtonSocialIcon: FlutterWebButtonSocialIcon.github,
                   onPressed: () {},
                   flutterWebIconButtonOptions: FlutterWebIconOptions(),
-                ),
-                FlutterWebButton.grow(
-                  'Button Grow',
-                  onPressed: () {},
-                  flutterWebButtonOptions: FlutterWebButtonOptions(
-                    buttonWidth: 200,
-                  ),
                 ),
                 FlutterWebButton.iconGrow(
                   icon: Icons.favorite,
@@ -107,10 +94,35 @@ class _MyHomePageState extends State<MyHomePage> {
                       FlutterWebIconOptions(color: Colors.red),
                 ),
               ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlutterWebButton.textUnderline(
+                  'Underline Animation Default',
+                  onPressed: () {},
+                  flutterTextOptions: FlutterTextOptions(fontSize: 24),
+                ),
+                FlutterWebButton.textUnderline(
+                  'Underline Animation Center',
+                  onPressed: () {},
+                  flutterTextOptions: FlutterTextOptions(fontSize: 24),
+                  textAnimatedColor: Colors.blue,
+                  animationCrossAxisAlignment: CrossAxisAlignment.center,
+                )
+              ],
             )
           ],
         ),
       ),
     );
+  }
+
+  double getTextWidth() {
+    if (txtKey.currentContext != null) {
+      final txtBox = txtKey.currentContext!.findRenderObject() as RenderBox;
+      return txtBox.size.width;
+    }
+    return 0;
   }
 }
