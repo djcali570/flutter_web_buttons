@@ -1,3 +1,7 @@
+## 0.0.6
+
+* Fixed alignment issue with underline button
+
 ## 0.0.5
 
 * Added grow button
