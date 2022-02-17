@@ -536,6 +536,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
   getTextUnderlineButton() => SizedBox(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment:
               widget.animationCrossAxisAlignment ?? CrossAxisAlignment.start,
           children: [
