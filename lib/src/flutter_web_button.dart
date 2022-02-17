@@ -212,6 +212,9 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   /// A curve animation.
   late CurvedAnimation _curvedAnimation;
 
+  /// A curve animation.
+  late CurvedAnimation _curvedCircAnimation;
+
   /// These colors are used as the default colors if not changed.
   final Color darkColor = Colors.pink;
   final Color? lightColor = Colors.pink[100];
@@ -239,6 +242,11 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         parent: _controller,
         curve: Curves.easeInOutQuint,
         reverseCurve: Curves.easeInOutQuint);
+
+    _curvedCircAnimation = CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOutCirc,
+        reverseCurve: Curves.easeInCirc);
 
     ///Animations
 
@@ -399,7 +407,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                   begin: 0,
                   end: widget.flutterWebButtonOptions!.buttonWidth ??
                       double.infinity)
-              .animate(_curvedAnimation);
+              .animate(_curvedCircAnimation);
         });
 
         /// Get the button
@@ -419,7 +427,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         /// Set the animated width to the text width.
         setState(() {
           _backgroundFill = Tween<double>(begin: 0, end: _textSize.width)
-              .animate(_curvedAnimation);
+              .animate(_curvedCircAnimation);
         });
 
         /// Get the button
