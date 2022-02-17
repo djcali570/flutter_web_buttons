@@ -94,6 +94,23 @@ FlutterWebButton.raiseText(
 
 ![raisetext4][raisetext4]
 
+## Current Button List
+
+| Button | Animation |
+| --- | ---|
+| BackgroundColorChange | Animates background color |
+| BackgroundFill | Fills the button with color from left to right |
+| buttonGrow | Scales the button to a given size |
+| iconGrow | Scales an icon to a given size |
+| raiseText | Transforms button text up |
+| simple | Simple button with no animation |
+| socialIcon | Social icon with no animation (see list)|
+| socialIconGrow | Scales a social icon to a given size |
+| textColorChange | Animates the text color |
+| textScroll | Animates the text to the top and back into original position |
+| textUnderline | Animates an underline from given position |
+
+
 ## Button Customization Properties
 
 ### Animation Properties
