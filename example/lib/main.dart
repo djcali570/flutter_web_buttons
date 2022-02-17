@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FlutterWebButton.backgroundColorChange(
-                  'My Button',
+                  'Background Color',
                   onPressed: () {
                     debugPrint('Button Pressed');
                   },
@@ -67,6 +67,42 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   flutterWebButtonOptions: FlutterWebButtonOptions(
                     buttonWidth: 200,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlutterWebButton.raiseText(
+                  'Raise Text',
+                  onPressed: () {},
+                  flutterWebButtonOptions: FlutterWebButtonOptions(
+                    buttonWidth: 200,
+                    buttonRadius: 30,
+                  ),
+                ),
+                FlutterWebButton.textScroll(
+                  'Text Scroll',
+                  onPressed: () {},
+                  flutterWebButtonOptions: FlutterWebButtonOptions(
+                    buttonWidth: 200,
+                    textColor: Colors.pink,
+                    buttonBackgroundColor: Colors.transparent,
+                    buttonBorderColor: Colors.pink,
+                    buttonRadius: 30,
+                  ),
+                ),
+                FlutterWebButton.simple(
+                  'Simple Hero',
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HeroPage()));
+                  },
+                  flutterWebButtonOptions: FlutterWebButtonOptions(
+                    buttonWidth: 200,
+                    heroTag: 'herotag',
+                    isHeroWidget: true,
                   ),
                 ),
               ],
@@ -98,6 +134,17 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                FlutterWebButton.textColorChange(
+                  'Text Color Change',
+                  onPressed: () {},
+                  textAnimatedColor: Colors.pink[100],
+                  flutterWebButtonOptions: FlutterWebButtonOptions(
+                    buttonWidth: 200,
+                    eliminateDecoration: true,
+                    textColor: Colors.pink,
+                    fontSize: 24,
+                  ),
+                ),
                 FlutterWebButton.textUnderline(
                   'Underline Animation Default',
                   onPressed: () {},
@@ -107,8 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   'Underline Animation Center',
                   onPressed: () {},
                   flutterTextOptions: FlutterTextOptions(fontSize: 24),
-                  textAnimatedColor: Colors.blue,
+                  textAnimatedColor: Colors.pink[100],
                   animationCrossAxisAlignment: CrossAxisAlignment.center,
+                  lineThickness: 1,
                 )
               ],
             )
@@ -117,12 +165,31 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
 
-  double getTextWidth() {
-    if (txtKey.currentContext != null) {
-      final txtBox = txtKey.currentContext!.findRenderObject() as RenderBox;
-      return txtBox.size.width;
-    }
-    return 0;
+class HeroPage extends StatelessWidget {
+  const HeroPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Hero Page')),
+      body: Center(
+        child: Hero(
+          tag: 'herotag',
+          child: Container(
+            width: double.infinity,
+            height: 400,
+            color: Colors.pink,
+            child: const Center(
+              child: Text(
+                'This is a hero!',
+                style: TextStyle(fontSize: 50, color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
