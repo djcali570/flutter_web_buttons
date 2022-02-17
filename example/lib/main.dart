@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 FlutterWebButton.backgroundFill('Background Fill',
                     onPressed: () {},
+                    animationDuration: const Duration(milliseconds: 500),
                     flutterWebButtonOptions:
                         FlutterWebButtonOptions(buttonWidth: 200)),
                 FlutterWebButton.grow(
@@ -148,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 FlutterWebButton.textUnderline(
                   'Underline Animation Default',
                   onPressed: () {},
+                  animationDuration: const Duration(milliseconds: 500),
                   flutterTextOptions: FlutterTextOptions(fontSize: 24),
                 ),
                 FlutterWebButton.textUnderline(
@@ -156,7 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   flutterTextOptions: FlutterTextOptions(fontSize: 24),
                   textAnimatedColor: Colors.pink[100],
                   animationCrossAxisAlignment: CrossAxisAlignment.center,
-                  lineThickness: 1,
                 )
               ],
             )
