@@ -30,6 +30,9 @@ class FlutterWebButton extends StatefulWidget {
   /// Used to set grow amount
   double? growAmount;
 
+  /// Used to set the underline thickness
+  double? lineThickness;
+
   /// Used to show a list of enums containing built in social icons.
   FlutterWebButtonSocialIcon? flutterWebButtonSocialIcon;
 
@@ -163,6 +166,7 @@ class FlutterWebButton extends StatefulWidget {
     this.animationDuration,
     this.textAnimatedColor,
     this.animationCrossAxisAlignment,
+    this.lineThickness = 2,
   })  : _buttonType = FlutterWebButtonList.textUnderline,
         super(key: key);
 
@@ -543,10 +547,9 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                       scaleX: 1,
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        color: widget.textAnimatedColor ?? Colors.pink,
-                        width: _backgroundFill.value,
-                        height: 2,
-                      ));
+                          color: widget.textAnimatedColor ?? Colors.pink,
+                          width: _backgroundFill.value,
+                          height: widget.lineThickness));
                 }),
           ],
         ),
