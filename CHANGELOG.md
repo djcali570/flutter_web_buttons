@@ -1,5 +1,6 @@
 ## 0.0.6
 
+* Added simple icon button
 * Fixed alignment issue with underline button
 
 ## 0.0.5
