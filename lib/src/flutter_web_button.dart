@@ -46,25 +46,6 @@ class FlutterWebButton extends StatefulWidget {
   CrossAxisAlignment? animationCrossAxisAlignment;
 
   /// Button Constructors
-  ///
-  /// The simplest form of a button. No animations.
-  FlutterWebButton.simple(
-    this.text, {
-    Key? key,
-    required this.onPressed,
-    required this.flutterWebButtonOptions,
-  })  : _buttonType = FlutterWebButtonList.simple,
-        super(key: key);
-
-  /// The text will scroll to the top and fade out and reappear from the bottom back into position.
-  FlutterWebButton.textScroll(
-    this.text, {
-    Key? key,
-    required this.onPressed,
-    required this.flutterWebButtonOptions,
-    this.animationDuration,
-  })  : _buttonType = FlutterWebButtonList.textScroll,
-        super(key: key);
 
   /// Animates the background color only.
   FlutterWebButton.backgroundColorChange(
@@ -77,29 +58,6 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.backgroundColorChange,
         super(key: key);
 
-  /// Animates the text color only.
-  FlutterWebButton.textColorChange(
-    this.text, {
-    Key? key,
-    required this.onPressed,
-    required this.flutterWebButtonOptions,
-    this.textAnimatedColor,
-    this.animationDuration,
-  })  : _buttonType = FlutterWebButtonList.textColorChange,
-        super(key: key);
-
-  /// Animation that bumps the text up.
-  FlutterWebButton.raiseText(
-    this.text, {
-    Key? key,
-    required this.onPressed,
-    required this.flutterWebButtonOptions,
-    this.animationDuration,
-    this.textAnimatedColor,
-  })  : _buttonType = FlutterWebButtonList.raiseText,
-        super(key: key);
-
-  ///
   /// Animated a background fill from left to right.
   /// [FlutterWebButtonOptions.buttonRadius] does not work for this animation.
   ///
@@ -136,6 +94,26 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.iconGrow,
         super(key: key);
 
+  /// Animation that bumps the text up.
+  FlutterWebButton.raiseText(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.flutterWebButtonOptions,
+    this.animationDuration,
+    this.textAnimatedColor,
+  })  : _buttonType = FlutterWebButtonList.raiseText,
+        super(key: key);
+
+  /// The simplest form of a button. No animations.
+  FlutterWebButton.simple(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.flutterWebButtonOptions,
+  })  : _buttonType = FlutterWebButtonList.simple,
+        super(key: key);
+
   /// Simple icon with no animation.
   FlutterWebButton.simpleIcon({
     Key? key,
@@ -164,6 +142,27 @@ class FlutterWebButton extends StatefulWidget {
     this.animationDuration,
     this.growAmount = 1.1,
   })  : _buttonType = FlutterWebButtonList.socialIconGrow,
+        super(key: key);
+
+  /// Animates the text color only.
+  FlutterWebButton.textColorChange(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.flutterWebButtonOptions,
+    this.textAnimatedColor,
+    this.animationDuration,
+  })  : _buttonType = FlutterWebButtonList.textColorChange,
+        super(key: key);
+
+  /// The text will scroll to the top and fade out and reappear from the bottom back into position.
+  FlutterWebButton.textScroll(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.flutterWebButtonOptions,
+    this.animationDuration,
+  })  : _buttonType = FlutterWebButtonList.textScroll,
         super(key: key);
 
   /// Display text with an animated underline effect.
