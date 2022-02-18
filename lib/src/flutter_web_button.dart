@@ -136,6 +136,15 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.iconGrow,
         super(key: key);
 
+  /// Simple icon with no animation.
+  FlutterWebButton.simpleIcon({
+    Key? key,
+    required this.icon,
+    required this.onPressed,
+    required this.flutterWebIconButtonOptions,
+  })  : _buttonType = FlutterWebButtonList.simpleIcon,
+        super(key: key);
+
   /// Display a simple social icon.
   FlutterWebButton.socialIcon({
     Key? key,
@@ -243,6 +252,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         curve: Curves.easeInOutQuint,
         reverseCurve: Curves.easeInOutQuint);
 
+    /// Animates a fast start and slower end.
     _curvedCircAnimation = CurvedAnimation(
         parent: _controller,
         curve: Curves.easeOutCirc,
@@ -395,16 +405,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   /// This will call the method used to return the correct button.
   getButton() {
     switch (widget._buttonType) {
-      case FlutterWebButtonList.simple:
-        return getSimpleButton();
-      case FlutterWebButtonList.textScroll:
-        return getTextScrollButton();
-      case FlutterWebButtonList.backgroundColorChange:
-        return getBackgroundColorChangeButton();
-      case FlutterWebButtonList.textColorChange:
-        return getTextColorChangeButton();
-      case FlutterWebButtonList.raiseText:
-        return getRaiseTextButton();
+
+      /// Return the background fill button.
       case FlutterWebButtonList.backgroundFill:
 
         /// Set the animated width to the button width.
@@ -418,16 +420,33 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
         /// Get the button
         return getBackgroundFillButton();
+
+      /// Return a simple button
+      case FlutterWebButtonList.simple:
+        return getSimpleButton();
+
+      /// Return a simple icon button.
+      case FlutterWebButtonList.simpleIcon:
+        return getSimpleIconButton(widget.icon!);
+      case FlutterWebButtonList.textScroll:
+        return getTextScrollButton();
+      case FlutterWebButtonList.backgroundColorChange:
+        return getBackgroundColorChangeButton();
+      case FlutterWebButtonList.textColorChange:
+        return getTextColorChangeButton();
+      case FlutterWebButtonList.iconGrow:
+        return getIconGrow(widget.icon!);
+      case FlutterWebButtonList.raiseText:
+        return getRaiseTextButton();
       case FlutterWebButtonList.socialIcon:
-        return getSocialButton(
+        return getSimpleIconButton(
             WebButtonIcon.getSocialIcon(widget.flutterWebButtonSocialIcon!));
       case FlutterWebButtonList.socialIconGrow:
         return getIconGrow(
             WebButtonIcon.getSocialIcon(widget.flutterWebButtonSocialIcon!));
       case FlutterWebButtonList.buttonGrow:
         return getButtonGrow();
-      case FlutterWebButtonList.iconGrow:
-        return getIconGrow(widget.icon!);
+
       case FlutterWebButtonList.textUnderline:
 
         /// Set the animated width to the text width.
@@ -460,6 +479,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               ),
             )),
       );
+
   getTextScrollButton() => Container(
         width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
         height: widget.flutterWebButtonOptions!.buttonHeight!,
@@ -653,8 +673,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         ),
       );
 
-  /// A simple social button with no animation.
-  getSocialButton(IconData icon) => SizedBox(
+  /// Method that returns a simple icon.
+  getSimpleIconButton(IconData icon) => SizedBox(
         child: Icon(
           icon,
           color: widget.flutterWebIconButtonOptions!.color ?? darkColor,
