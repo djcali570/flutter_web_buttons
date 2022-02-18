@@ -311,6 +311,12 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Get the size of the text.
     // This is used for predetermining the size so the underline animation will stretch to the size of the text.
