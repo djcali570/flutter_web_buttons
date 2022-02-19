@@ -405,23 +405,31 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
         /// Gesture detector is used to handle the onPressed event.
         child: GestureDetector(
-            onTap: widget.onPressed,
+          onTap: widget.onPressed,
 
-            /// Decide if using [hero] widget. If using a hero wrap the button with the [Hero] widget
-            /// Here we are doing some null checks to see if the hero properties are used or not.
-            child: (widget.flutterWebButtonOptions != null)
-                ? (widget.flutterWebButtonOptions!.isHeroWidget!)
-                    ? Hero(
-                        tag: widget.flutterWebButtonOptions!.heroTag!,
-                        child: getButton())
-                    : getButton()
-                : (widget.flutterWebIconButtonOptions != null)
-                    ? (widget.flutterWebIconButtonOptions!.isHeroWidget!)
-                        ? Hero(
-                            tag: widget.flutterWebIconButtonOptions!.heroTag!,
-                            child: getButton())
-                        : getButton()
-                    : getButton()),
+          /// Decide if using [hero] widget. If using a hero wrap the button with the [Hero] widget
+          /// Here we are doing some null checks to see if the hero properties are used or not.
+          child: (widget.flutterWebButtonOptions != null)
+              ? (widget.flutterWebButtonOptions!.isHeroWidget!)
+                  ? Hero(
+                      tag: widget.flutterWebButtonOptions!.heroTag!,
+                      child: getButton())
+                  : getButton()
+              : (widget.flutterWebIconButtonOptions != null)
+                  ? (widget.flutterWebIconButtonOptions!.isHeroWidget!)
+                      ? Hero(
+                          tag: widget.flutterWebIconButtonOptions!.heroTag!,
+                          child: getButton())
+                      : getButton()
+                  : (widget.flutterTextOptions != null)
+                      ? (widget.flutterTextOptions!.isHeroWidget!)
+                          ? Hero(
+                              tag: widget.flutterTextOptions!.heroTag!,
+                              child: getButton(),
+                            )
+                          : getButton()
+                      : getButton(),
+        ),
       ),
     );
   }
@@ -599,9 +607,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
       builder: (context, child) => Transform.translate(
             offset: Offset(
                 widget.moveDistanceX! != 0 ? _moveTextAnimation.value : 0,
-                widget.moveDistanceY! != 0
-                    ? _moveTextAnimation.value
-                    : 0),
+                widget.moveDistanceY! != 0 ? _moveTextAnimation.value : 0),
             child: Material(
               type: MaterialType.transparency,
               textStyle: textOnlyTextStyle(),
