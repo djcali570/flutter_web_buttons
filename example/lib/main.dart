@@ -88,9 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {},
                   flutterWebButtonOptions: FlutterWebButtonOptions(
                     buttonWidth: 200,
-                    textColor: Colors.pink,
+                    textColor: const Color(0xFF2A2C2B),
                     buttonBackgroundColor: Colors.transparent,
-                    buttonBorderColor: Colors.pink,
+                    buttonBorderColor: const Color(0XFF2E7D32), 
                     buttonRadius: 30,
                   ),
                 ),
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icons.menu,
                   onPressed: () {},
                   flutterWebIconButtonOptions:
-                      FlutterWebIconOptions(color: Colors.pink),
+                      FlutterWebIconOptions(color: Colors.black),
                 ),
                 FlutterWebButton.socialIcon(
                   flutterWebButtonSocialIcon:
@@ -144,11 +144,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 FlutterWebButton.textColorChange(
                   'Text Color Change',
                   onPressed: () {},
-                  textAnimatedColor: Colors.pink[100],
+                  textAnimatedColor: const Color(0XFF2E7D32),                  
                   flutterWebButtonOptions: FlutterWebButtonOptions(
                     buttonWidth: 200,
-                    eliminateDecoration: true,
-                    textColor: Colors.pink,
+                    eliminateDecoration: true,                    
+                    textColor: const Color(0xFF2A2C2B),
                     fontSize: 24,
                   ),
                 ),
@@ -161,20 +161,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 FlutterWebButton.textUnderline(
                   'Underline Animation Center',
                   onPressed: () {},
-                  flutterTextOptions: FlutterTextOptions(fontSize: 24),
-                  textAnimatedColor: Colors.pink[100],
+                  flutterTextOptions: FlutterTextOptions(fontSize: 24),                  
                   animationCrossAxisAlignment: CrossAxisAlignment.center,
                 ),
                 FlutterWebButton.textMove(
-                  'Text Move',
+                  'Move Text',
                   onPressed: () {},
-                  moveDistanceX: 5,                  
-                  flutterTextOptions: FlutterTextOptions(
-                    fontSize: 24
-                  ),
+                  moveDistanceX: 5,
+                  flutterTextOptions: FlutterTextOptions(fontSize: 24),
                 )
               ],
-            )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlutterWebButton.buttonHighlightIconFill('Icon With Background Fill',
+                    icon: Icons.add,
+                    onPressed: () {},                                        
+                    flutterTextOptions: FlutterTextOptions(
+                      fontSize: 20,                      
+                    )),
+              ],
+            ),
           ],
         ),
       ),
