@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 FlutterWebButton.simple(
-                  'Simple Hero',
+                  'Simple With Hero',
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HeroPage()));
@@ -111,6 +111,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                FlutterWebButton.simpleIcon(
+                  icon: Icons.menu,
+                  onPressed: () {},
+                  flutterWebIconButtonOptions:
+                      FlutterWebIconOptions(color: Colors.pink),
+                ),
                 FlutterWebButton.socialIcon(
                   flutterWebButtonSocialIcon:
                       FlutterWebButtonSocialIcon.instagram,
@@ -158,6 +164,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   flutterTextOptions: FlutterTextOptions(fontSize: 24),
                   textAnimatedColor: Colors.pink[100],
                   animationCrossAxisAlignment: CrossAxisAlignment.center,
+                ),
+                FlutterWebButton.textMove(
+                  'Text Move',
+                  onPressed: () {},
+                  moveDistanceX: 5,                  
+                  flutterTextOptions: FlutterTextOptions(
+                    fontSize: 24
+                  ),
                 )
               ],
             )
