@@ -594,25 +594,22 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
             )),
       );
 
-  getTextMove() => Align(
-        alignment: Alignment.center,
-        child: AnimatedBuilder(
-            animation: _moveTextAnimation,
-            builder: (context, child) => Transform.translate(
-                  offset: Offset(
-                      widget.moveDistanceX! != 0 ? _moveTextAnimation.value : 0,
-                      widget.moveDistanceY! != 0
-                          ? _moveTextAnimation.value
-                          : 0),
-                  child: Material(
-                    type: MaterialType.transparency,
-                    textStyle: textOnlyTextStyle(),
-                    child: Text(
-                      widget.text!,
-                    ),
-                  ),
-                )),
-      );
+  getTextMove() => AnimatedBuilder(
+      animation: _moveTextAnimation,
+      builder: (context, child) => Transform.translate(
+            offset: Offset(
+                widget.moveDistanceX! != 0 ? _moveTextAnimation.value : 0,
+                widget.moveDistanceY! != 0
+                    ? _moveTextAnimation.value
+                    : 0),
+            child: Material(
+              type: MaterialType.transparency,
+              textStyle: textOnlyTextStyle(),
+              child: Text(
+                widget.text!,
+              ),
+            ),
+          ));
 
   getTextUnderlineButton() => SizedBox(
         child: Column(
