@@ -175,7 +175,7 @@ class FlutterWebButton extends StatefulWidget {
 
     /// This animation only moves in one direction. (The bigger value is chosen)
     this.moveDistanceX = 0,
-    this.moveDistanceY = 5,
+    this.moveDistanceY = 0,
   })  : _buttonType = FlutterWebButtonList.textMove,
         super(key: key);
 
