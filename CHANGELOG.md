@@ -1,8 +1,10 @@
 ## 0.0.6
 
+* Added Highlight Icon Fill button
 * Added Text Move button
 * Added simple icon button
 * Fixed alignment issue with underline button
+* Updated example
 
 ## 0.0.5
 
