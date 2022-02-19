@@ -646,7 +646,9 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
   /// Button with icon that fills the backgound
   getButtonHighlightIconFill(IconData icon) => SizedBox(
-        width: _textSize.width + 110,
+        width: widget.flutterTextOptions!.fontSize != null
+            ? _textSize.width + widget.flutterTextOptions!.fontSize! + 35
+            : fallbackFontSize + _textSize.width + 35,
         child: Stack(
           alignment: Alignment.centerLeft,
           children: [
