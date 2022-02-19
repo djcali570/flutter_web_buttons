@@ -15,6 +15,9 @@ class FlutterWebButton extends StatefulWidget {
   /// Icon used for custom icon animations.
   IconData? icon;
 
+  /// Icon color used for custom icon animations.
+  Color? iconColor;
+
   /// Using a separate constructor for properties that are not required to display the button.
   FlutterWebButtonOptions? flutterWebButtonOptions;
 
@@ -76,6 +79,19 @@ class FlutterWebButton extends StatefulWidget {
     this.backgroundAnimatedColor,
     this.animationDuration,
   })  : _buttonType = FlutterWebButtonList.backgroundFill,
+        super(key: key);
+
+  /// Simple button with grow effect.
+  FlutterWebButton.buttonHighlightIconFill(
+    this.text, {
+    Key? key,
+    required this.icon,
+    required this.onPressed,
+    required this.flutterTextOptions,
+    this.animationDuration,
+    this.iconColor,
+    this.backgroundAnimatedColor,
+  })  : _buttonType = FlutterWebButtonList.buttonHighlightIconFill,
         super(key: key);
 
   /// Simple button with grow effect.
@@ -248,10 +264,12 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   late CurvedAnimation _curvedCircAnimation;
 
   /// These colors are used as the default colors if not changed.
-  final Color darkColor = Colors.pink;
-  final Color? lightColor = Colors.pink[100];
-  final Color textColor = Colors.white;
-  final Color darkTextColor = Colors.pink;
+  final Color darkColor = const Color(0XFF2E7D32);
+  final Color darkColorTint = const Color(0xFF33691E);
+  final Color lightColor = const Color(0xFFF0E9E1);
+  final Color textColor = const Color(0xFFF0E9E1);
+  final Color darkTextColor = const Color(0xFF2A2C2B);
+  final double fallbackFontSize = 16;
 
   /// Some variables used so we can reuse animations
   late Size _textSize;
@@ -289,12 +307,12 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
       _backgroundColorAnimation = ColorTween(
               begin: widget.flutterWebButtonOptions!.buttonBackgroundColor ??
                   darkColor,
-              end: widget.backgroundAnimatedColor ?? lightColor)
+              end: widget.backgroundAnimatedColor ?? darkColorTint)
           .animate(_curvedAnimation);
 
       _textColorAnimation = ColorTween(
               begin: widget.flutterWebButtonOptions!.textColor ?? textColor,
-              end: widget.textAnimatedColor ?? Colors.white70)
+              end: widget.textAnimatedColor ?? darkTextColor)
           .animate(_curvedAnimation);
       _textColorAnimationNoCurve = ColorTween(
               begin: widget.flutterWebButtonOptions!.textColor ?? darkTextColor,
@@ -366,7 +384,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                 text: TextSpan(
                   text: widget.text,
                   style: TextStyle(
-                    fontSize: widget.flutterTextOptions!.fontSize ?? 16,
+                    fontSize:
+                        widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
                     fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
                   ),
                 ),
@@ -459,6 +478,24 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         /// Get the button
         return getBackgroundFillButton();
 
+      /// Return the highlight icon fill button
+      case FlutterWebButtonList.buttonHighlightIconFill:
+
+        /// Set the animated width to the text width.
+        setState(() {
+          _backgroundFill = Tween<double>(
+                  begin: widget.flutterTextOptions!.fontSize != null
+                      ? widget.flutterTextOptions!.fontSize! + 30
+                      : fallbackFontSize + 30,
+                  end: widget.flutterTextOptions!.fontSize != null
+                      ? _textSize.width +
+                          widget.flutterTextOptions!.fontSize! +
+                          35
+                      : _textSize.width + fallbackFontSize + 35)
+              .animate(_curvedCircAnimation);
+        });
+        return getButtonHighlightIconFill(widget.icon!);
+
       /// Return a simple button
       case FlutterWebButtonList.simple:
         return getSimpleButton();
@@ -522,36 +559,6 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
             )),
       );
 
-  getTextScrollButton() => Container(
-        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
-        height: widget.flutterWebButtonOptions!.buttonHeight!,
-        decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
-            ? null
-            : standardBoxDecoration(),
-        child: Align(
-          alignment: Alignment.center,
-          child: AnimatedBuilder(
-              animation: _textScrollAnimation,
-              builder: (context, child) => Transform(
-                    transform: Matrix4.identity()
-                      ..translate(0, _textScrollAnimation.value),
-                    child: AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, _) {
-                          return Material(
-                            type: MaterialType.transparency,
-                            textStyle: standardTextStyle(),
-                            child: Opacity(
-                              opacity: _textScrollOpacityAnimation.value,
-                              child: Text(
-                                widget.text!,
-                              ),
-                            ),
-                          );
-                        }),
-                  )),
-        ),
-      );
   getBackgroundColorChangeButton() => AnimatedBuilder(
         animation: _backgroundColorAnimation,
         builder: ((context, child) => Container(
@@ -568,114 +575,15 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                 alignment: Alignment.center,
                 child: Material(
                   type: MaterialType.transparency,
-                  textStyle: standardTextStyle(),
                   child: Text(
                     widget.text!,
+                    style: standardTextStyle(),
                   ),
                 ),
               ),
             )),
       );
 
-  getTextColorChangeButton() => AnimatedBuilder(
-        animation: _textColorAnimation,
-        builder: ((context, child) => Container(
-              width: widget.flutterWebButtonOptions!.buttonWidth ??
-                  double.infinity,
-              height: widget.flutterWebButtonOptions!.buttonHeight,
-              decoration: standardBoxDecoration(),
-              child: Align(
-                alignment: Alignment.center,
-                child: Material(
-                  type: MaterialType.transparency,
-                  textStyle: TextStyle(
-                    color: _textColorAnimation.value,
-                    fontFamily:
-                        widget.flutterWebButtonOptions!.fontFamily ?? '',
-                    fontSize: widget.flutterWebButtonOptions!.fontSize ?? 16,
-                  ),
-                  child: Text(
-                    widget.text!,
-                  ),
-                ),
-              ),
-            )),
-      );
-
-  getTextMove() => AnimatedBuilder(
-      animation: _moveTextAnimation,
-      builder: (context, child) => Transform.translate(
-            offset: Offset(
-                widget.moveDistanceX! != 0 ? _moveTextAnimation.value : 0,
-                widget.moveDistanceY! != 0 ? _moveTextAnimation.value : 0),
-            child: Material(
-              type: MaterialType.transparency,
-              textStyle: textOnlyTextStyle(),
-              child: Text(
-                widget.text!,
-              ),
-            ),
-          ));
-
-  getTextUnderlineButton() => SizedBox(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment:
-              widget.animationCrossAxisAlignment ?? CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.text!,
-              style: TextStyle(
-                color: widget.flutterTextOptions!.textColor ?? darkColor,
-                fontSize: widget.flutterTextOptions!.fontSize ?? 16,
-                fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
-              ),
-              key: _textKey,
-            ),
-            AnimatedBuilder(
-                animation: _backgroundFill,
-                builder: (context, _) {
-                  return Transform.scale(
-                      scaleX: 1,
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                          color: widget.textAnimatedColor ?? Colors.pink,
-                          width: _backgroundFill.value,
-                          height: widget.lineThickness));
-                }),
-          ],
-        ),
-      );
-
-  getRaiseTextButton() => Container(
-        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
-        height: widget.flutterWebButtonOptions!.buttonHeight,
-        decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
-            ? null
-            : standardBoxDecoration(),
-        child: Align(
-          alignment: Alignment.center,
-          child: AnimatedBuilder(
-              animation: _moveTextAnimation,
-              builder: (context, child) => Transform.translate(
-                    offset: Offset(
-                        widget.moveDistanceX! != 0
-                            ? _moveTextAnimation.value
-                            : 0,
-                        widget.moveDistanceY! != 0
-                            ? _moveTextAnimation.value
-                            : 0),
-                    child: Material(
-                      type: MaterialType.transparency,
-                      textStyle: standardTextStyle(),
-                      child: Text(
-                        widget.text!,
-                      ),
-                    ),
-                  )),
-        ),
-      );
   getBackgroundFillButton() => SizedBox(
         width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
         height: widget.flutterWebButtonOptions!.buttonHeight,
@@ -722,8 +630,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                           color: _textColorAnimationNoCurve.value,
                           fontFamily:
                               widget.flutterWebButtonOptions!.fontFamily ?? '',
-                          fontSize:
-                              widget.flutterWebButtonOptions!.fontSize ?? 16,
+                          fontSize: widget.flutterWebButtonOptions!.fontSize ??
+                              fallbackFontSize,
                         ),
                         child: Text(
                           widget.text!,
@@ -733,6 +641,192 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               ),
             ],
           ),
+        ),
+      );
+
+  /// Button with icon that fills the backgound
+  getButtonHighlightIconFill(IconData icon) => SizedBox(
+        width: _textSize.width + 110,
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: AnimatedBuilder(
+                  animation: _backgroundFill,
+                  builder: (context, _) {
+                    return Container(
+                      alignment: Alignment.centerLeft,
+                      width: _backgroundFill.value,
+                      height: widget.flutterTextOptions!.fontSize != null
+                          ? widget.flutterTextOptions!.fontSize! + 30
+                          : fallbackFontSize + 30,
+                      decoration: BoxDecoration(
+                          color: widget.backgroundAnimatedColor ?? lightColor,
+                          borderRadius: BorderRadius.all(Radius.circular(
+                              widget.flutterTextOptions!.fontSize != null
+                                  ? widget.flutterTextOptions!.fontSize! + 10
+                                  : 30))),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: Icon(
+                          icon,
+                          color: widget.iconColor ?? darkColor,
+                          size: widget.flutterTextOptions!.fontSize ??
+                              fallbackFontSize,
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: widget.flutterTextOptions!.fontSize != null
+                      ? widget.flutterTextOptions!.fontSize! + 14
+                      : fallbackFontSize + 14),
+              child: Text(
+                widget.text!,
+                style: TextStyle(
+                    color:
+                        widget.flutterTextOptions!.textColor ?? darkTextColor,
+                    fontSize:
+                        widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
+                    fontFamily: widget.flutterTextOptions!.fontFamily ?? ''),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  getTextColorChangeButton() => AnimatedBuilder(
+        animation: _textColorAnimation,
+        builder: ((context, child) => Container(
+              width: widget.flutterWebButtonOptions!.buttonWidth ??
+                  double.infinity,
+              height: widget.flutterWebButtonOptions!.buttonHeight,
+              decoration: standardBoxDecoration(),
+              child: Align(
+                alignment: Alignment.center,
+                child: Material(
+                  type: MaterialType.transparency,
+                  textStyle: TextStyle(
+                    color: _textColorAnimation.value,
+                    fontFamily:
+                        widget.flutterWebButtonOptions!.fontFamily ?? '',
+                    fontSize: widget.flutterWebButtonOptions!.fontSize ??
+                        fallbackFontSize,
+                  ),
+                  child: Text(
+                    widget.text!,
+                  ),
+                ),
+              ),
+            )),
+      );
+
+  getTextMove() => AnimatedBuilder(
+      animation: _moveTextAnimation,
+      builder: (context, child) => Transform.translate(
+            offset: Offset(
+                widget.moveDistanceX! != 0 ? _moveTextAnimation.value : 0,
+                widget.moveDistanceY! != 0 ? _moveTextAnimation.value : 0),
+            child: Material(
+              type: MaterialType.transparency,
+              textStyle: textOnlyTextStyle(),
+              child: Text(
+                widget.text!,
+              ),
+            ),
+          ));
+
+  getTextScrollButton() => Container(
+        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
+        height: widget.flutterWebButtonOptions!.buttonHeight!,
+        decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
+            ? null
+            : standardBoxDecoration(),
+        child: Align(
+          alignment: Alignment.center,
+          child: AnimatedBuilder(
+              animation: _textScrollAnimation,
+              builder: (context, child) => Transform(
+                    transform: Matrix4.identity()
+                      ..translate(0, _textScrollAnimation.value),
+                    child: AnimatedBuilder(
+                        animation: _controller,
+                        builder: (context, _) {
+                          return Material(
+                            type: MaterialType.transparency,
+                            textStyle: standardTextStyle(),
+                            child: Opacity(
+                              opacity: _textScrollOpacityAnimation.value,
+                              child: Text(
+                                widget.text!,
+                              ),
+                            ),
+                          );
+                        }),
+                  )),
+        ),
+      );
+  getTextUnderlineButton() => SizedBox(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment:
+              widget.animationCrossAxisAlignment ?? CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.text!,
+              style: TextStyle(
+                color: widget.flutterTextOptions!.textColor ?? darkTextColor,
+                fontSize:
+                    widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
+                fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
+              ),
+              key: _textKey,
+            ),
+            AnimatedBuilder(
+                animation: _backgroundFill,
+                builder: (context, _) {
+                  return Transform.scale(
+                      scaleX: 1,
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                          color: widget.textAnimatedColor ?? darkColor,
+                          width: _backgroundFill.value,
+                          height: widget.lineThickness));
+                }),
+          ],
+        ),
+      );
+
+  getRaiseTextButton() => Container(
+        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
+        height: widget.flutterWebButtonOptions!.buttonHeight,
+        decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
+            ? null
+            : standardBoxDecoration(),
+        child: Align(
+          alignment: Alignment.center,
+          child: AnimatedBuilder(
+              animation: _moveTextAnimation,
+              builder: (context, child) => Transform.translate(
+                    offset: Offset(
+                        widget.moveDistanceX! != 0
+                            ? _moveTextAnimation.value
+                            : 0,
+                        widget.moveDistanceY! != 0
+                            ? _moveTextAnimation.value
+                            : 0),
+                    child: Material(
+                      type: MaterialType.transparency,
+                      textStyle: standardTextStyle(),
+                      child: Text(
+                        widget.text!,
+                      ),
+                    ),
+                  )),
         ),
       );
 
@@ -826,16 +920,16 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
   /// Text only button text styles
   textOnlyTextStyle() => TextStyle(
-        color: widget.flutterTextOptions!.textColor ?? darkColor,
+        color: widget.flutterTextOptions!.textColor ?? darkTextColor,
         fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
-        fontSize: widget.flutterTextOptions!.fontSize ?? 16,
+        fontSize: widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
       );
 
   /// Textstyle
   standardTextStyle() => TextStyle(
         color: widget.flutterWebButtonOptions!.textColor ?? textColor,
         fontFamily: widget.flutterWebButtonOptions!.fontFamily ?? '',
-        fontSize: widget.flutterWebButtonOptions!.fontSize ?? 16,
+        fontSize: widget.flutterWebButtonOptions!.fontSize ?? fallbackFontSize,
       );
 
   /// Box Shadow
