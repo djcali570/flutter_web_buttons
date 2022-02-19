@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_web_buttons/src/clippers.dart';
 import 'package:flutter_web_buttons/src/icon_config.dart';
@@ -302,9 +300,6 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               begin: widget.flutterWebButtonOptions!.textColor ?? darkTextColor,
               end: widget.textAnimatedColor ?? textColor)
           .animate(_controller);
-      // _moveTextAnimation =
-      //     Tween<double>(begin: 0.0, end: widget.moveDistanceX ?? -4)
-      //         .animate(_curvedAnimation);
 
       /// Sequence Animations for non icon buttons
       _textScrollAnimation = TweenSequence(<TweenSequenceItem<double>>[
