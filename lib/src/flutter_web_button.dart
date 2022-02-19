@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_buttons/src/clippers.dart';
 import 'package:flutter_web_buttons/src/icon_config.dart';
@@ -32,6 +34,12 @@ class FlutterWebButton extends StatefulWidget {
 
   /// Used to set the underline thickness
   double? lineThickness;
+
+  /// Used to set distance the animation moves in the x direction.
+  double? moveDistanceX;
+
+  /// Used to set distance the animation moves in the x direction.
+  double? moveDistanceY;
 
   /// Used to show a list of enums containing built in social icons.
   FlutterWebButtonSocialIcon? flutterWebButtonSocialIcon;
@@ -102,6 +110,10 @@ class FlutterWebButton extends StatefulWidget {
     required this.flutterWebButtonOptions,
     this.animationDuration,
     this.textAnimatedColor,
+
+    /// This animation only moves in one direction. (The bigger value is chosen)
+    this.moveDistanceX = 0,
+    this.moveDistanceY = -4,
   })  : _buttonType = FlutterWebButtonList.raiseText,
         super(key: key);
 
@@ -153,6 +165,20 @@ class FlutterWebButton extends StatefulWidget {
     this.textAnimatedColor,
     this.animationDuration,
   })  : _buttonType = FlutterWebButtonList.textColorChange,
+        super(key: key);
+
+  /// Display text with an animated move in x or y direction.
+  FlutterWebButton.textMove(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.flutterTextOptions,
+    this.animationDuration,
+
+    /// This animation only moves in one direction. (The bigger value is chosen)
+    this.moveDistanceX = 0,
+    this.moveDistanceY = 5,
+  })  : _buttonType = FlutterWebButtonList.textMove,
         super(key: key);
 
   /// The text will scroll to the top and fade out and reappear from the bottom back into position.
@@ -209,7 +235,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   late Animation<Color?> _textColorAnimationNoCurve;
 
   /// Used to bump the text up the y axis.
-  late Animation<double> _raiseTextAnimation;
+  late Animation<double> _moveTextAnimation;
 
   /// Used to perform a background fill. The animation makes the containers width from 0 to button width
   late Animation<double> _backgroundFill;
@@ -276,8 +302,9 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               begin: widget.flutterWebButtonOptions!.textColor ?? darkTextColor,
               end: widget.textAnimatedColor ?? textColor)
           .animate(_controller);
-      _raiseTextAnimation =
-          Tween<double>(begin: 0.0, end: -4).animate(_curvedAnimation);
+      // _moveTextAnimation =
+      //     Tween<double>(begin: 0.0, end: widget.moveDistanceX ?? -4)
+      //         .animate(_curvedAnimation);
 
       /// Sequence Animations for non icon buttons
       _textScrollAnimation = TweenSequence(<TweenSequenceItem<double>>[
@@ -311,6 +338,15 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
             weight: 50),
       ]).animate(_controller);
     }
+
+    _moveTextAnimation = Tween<double>(
+            begin: 0,
+            end: widget.moveDistanceX != 0
+                ? widget.moveDistanceX
+                : widget.moveDistanceY != 0
+                    ? widget.moveDistanceY
+                    : 0)
+        .animate(_curvedAnimation);
 
     /// These animations are for buttons or icon buttons
     _grow = Tween<double>(begin: 1.0, end: widget.growAmount)
@@ -427,6 +463,10 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
       /// Return a simple icon button.
       case FlutterWebButtonList.simpleIcon:
         return getSimpleIconButton(widget.icon!);
+
+      /// Return a text with a move animation.
+      case FlutterWebButtonList.textMove:
+        return getTextMove();
       case FlutterWebButtonList.textScroll:
         return getTextScrollButton();
       case FlutterWebButtonList.backgroundColorChange:
@@ -559,6 +599,26 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
             )),
       );
 
+  getTextMove() => Align(
+        alignment: Alignment.center,
+        child: AnimatedBuilder(
+            animation: _moveTextAnimation,
+            builder: (context, child) => Transform.translate(
+                  offset: Offset(
+                      widget.moveDistanceX! != 0 ? _moveTextAnimation.value : 0,
+                      widget.moveDistanceY! != 0
+                          ? _moveTextAnimation.value
+                          : 0),
+                  child: Material(
+                    type: MaterialType.transparency,
+                    textStyle: textOnlyTextStyle(),
+                    child: Text(
+                      widget.text!,
+                    ),
+                  ),
+                )),
+      );
+
   getTextUnderlineButton() => SizedBox(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -599,9 +659,15 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         child: Align(
           alignment: Alignment.center,
           child: AnimatedBuilder(
-              animation: _raiseTextAnimation,
+              animation: _moveTextAnimation,
               builder: (context, child) => Transform.translate(
-                    offset: Offset(0.0, _raiseTextAnimation.value),
+                    offset: Offset(
+                        widget.moveDistanceX! != 0
+                            ? _moveTextAnimation.value
+                            : 0,
+                        widget.moveDistanceY! != 0
+                            ? _moveTextAnimation.value
+                            : 0),
                     child: Material(
                       type: MaterialType.transparency,
                       textStyle: standardTextStyle(),
@@ -759,6 +825,13 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
       : Border.all(
           color: widget.flutterWebButtonOptions!.buttonBorderColor!,
           width: widget.flutterWebButtonOptions!.buttonBorderWidth ?? 1.0);
+
+  /// Text only button text styles
+  textOnlyTextStyle() => TextStyle(
+        color: widget.flutterTextOptions!.textColor ?? darkColor,
+        fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
+        fontSize: widget.flutterTextOptions!.fontSize ?? 16,
+      );
 
   /// Textstyle
   standardTextStyle() => TextStyle(
