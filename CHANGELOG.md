@@ -1,5 +1,6 @@
 ## 0.0.6
 
+* Added Text Move button
 * Added simple icon button
 * Fixed alignment issue with underline button
 
