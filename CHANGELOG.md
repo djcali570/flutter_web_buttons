@@ -3,6 +3,8 @@
 * Added Highlight Icon Fill button
 * Added Text Move button
 * Added simple icon button
+* Added letterSpacing property for text
+* Added option for spacing between text and the line for underline animation.
 * Fixed alignment issue with underline button
 * Updated example
 
