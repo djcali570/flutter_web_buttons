@@ -36,6 +36,9 @@ class FlutterWebButton extends StatefulWidget {
   /// Used to set the underline thickness
   double? lineThickness;
 
+  /// Used to set the underline spacing between text and line
+  double? lineSpacing;
+
   /// Used to set distance the animation moves in the x direction.
   double? moveDistanceX;
 
@@ -215,6 +218,7 @@ class FlutterWebButton extends StatefulWidget {
     this.textAnimatedColor,
     this.animationCrossAxisAlignment,
     this.lineThickness = 2,
+    this.lineSpacing = 0,
   })  : _buttonType = FlutterWebButtonList.textUnderline,
         super(key: key);
 
@@ -387,6 +391,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                     fontSize:
                         widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
                     fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
+                    letterSpacing:
+                        widget.flutterTextOptions!.letterSpacing ?? 0,
                   ),
                 ),
                 maxLines: 1,
@@ -632,6 +638,9 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                               widget.flutterWebButtonOptions!.fontFamily ?? '',
                           fontSize: widget.flutterWebButtonOptions!.fontSize ??
                               fallbackFontSize,
+                          letterSpacing:
+                              widget.flutterWebButtonOptions!.letterSpacing ??
+                                  0,
                         ),
                         child: Text(
                           widget.text!,
@@ -689,11 +698,12 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               child: Text(
                 widget.text!,
                 style: TextStyle(
-                    color:
-                        widget.flutterTextOptions!.textColor ?? darkTextColor,
-                    fontSize:
-                        widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
-                    fontFamily: widget.flutterTextOptions!.fontFamily ?? ''),
+                  color: widget.flutterTextOptions!.textColor ?? darkTextColor,
+                  fontSize:
+                      widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
+                  fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
+                  letterSpacing: widget.flutterTextOptions!.letterSpacing ?? 0,
+                ),
               ),
             ),
           ],
@@ -717,6 +727,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                         widget.flutterWebButtonOptions!.fontFamily ?? '',
                     fontSize: widget.flutterWebButtonOptions!.fontSize ??
                         fallbackFontSize,
+                    letterSpacing:
+                        widget.flutterWebButtonOptions!.letterSpacing ?? 0,
                   ),
                   child: Text(
                     widget.text!,
@@ -785,8 +797,12 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                 fontSize:
                     widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
                 fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
+                letterSpacing: widget.flutterTextOptions!.letterSpacing ?? 0,
               ),
               key: _textKey,
+            ),
+            SizedBox(
+              height: widget.lineSpacing,
             ),
             AnimatedBuilder(
                 animation: _backgroundFill,
@@ -925,6 +941,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         color: widget.flutterTextOptions!.textColor ?? darkTextColor,
         fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
         fontSize: widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
+        letterSpacing: widget.flutterTextOptions!.letterSpacing ?? 0,
       );
 
   /// Textstyle
@@ -932,6 +949,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         color: widget.flutterWebButtonOptions!.textColor ?? textColor,
         fontFamily: widget.flutterWebButtonOptions!.fontFamily ?? '',
         fontSize: widget.flutterWebButtonOptions!.fontSize ?? fallbackFontSize,
+        letterSpacing: widget.flutterWebButtonOptions!.letterSpacing ?? 0,
       );
 
   /// Box Shadow
