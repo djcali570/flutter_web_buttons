@@ -10,6 +10,7 @@ class FlutterWebButtonOptions {
   Color? textColor;
   double? fontSize;
   String? fontFamily;
+  double? letterSpacing;
   EdgeInsetsGeometry? buttonPadding;
   bool? eliminateDecoration;
   double? buttonRadius;
@@ -29,6 +30,7 @@ class FlutterWebButtonOptions {
     this.textColor,
     this.fontSize,
     this.fontFamily,
+    this.letterSpacing,
     this.buttonPadding = const EdgeInsets.all(10),
     this.eliminateDecoration = false,
     this.buttonRadius,
@@ -72,6 +74,7 @@ class FlutterTextOptions {
   Color? textColor;
   double? fontSize;
   String? fontFamily;
+  double? letterSpacing;
   EdgeInsetsGeometry? padding;
   String? heroTag;
   bool? isHeroWidget;
@@ -79,6 +82,7 @@ class FlutterTextOptions {
     this.textColor,
     this.fontSize,
     this.fontFamily,
+    this.letterSpacing,
     this.padding = const EdgeInsets.all(10),
 
     /// These properties are only used if using a [Hero] widget.
