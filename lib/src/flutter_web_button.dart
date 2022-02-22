@@ -66,6 +66,7 @@ class FlutterWebButton extends StatefulWidget {
     required this.onPressed,
     required this.flutterWebButtonOptions,
     this.backgroundAnimatedColor,
+    this.textAnimatedColor,
     this.animationDuration,
   })  : _buttonType = FlutterWebButtonList.backgroundColorChange,
         super(key: key);
@@ -548,22 +549,6 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   }
 
   /// Button methods that get returned to the gesture detector.
-  getSimpleButton() => Container(
-        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
-        height: widget.flutterWebButtonOptions!.buttonHeight!,
-        decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
-            ? null
-            : standardBoxDecoration(),
-        child: Align(
-            alignment: Alignment.center,
-            child: Material(
-              type: MaterialType.transparency,
-              textStyle: standardTextStyle(),
-              child: Text(
-                widget.text!,
-              ),
-            )),
-      );
 
   getBackgroundColorChangeButton() => AnimatedBuilder(
         animation: _backgroundColorAnimation,
@@ -581,10 +566,29 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                 alignment: Alignment.center,
                 child: Material(
                   type: MaterialType.transparency,
-                  child: Text(
-                    widget.text!,
-                    style: standardTextStyle(),
-                  ),
+                  child: AnimatedBuilder(
+                      animation: _textColorAnimation,
+                      builder: (context, _) {
+                        return Text(
+                          widget.text!,
+                          style: TextStyle(
+
+                              /// If a text color animation is chosen then animate the text color else use the original color else set to default color.
+                              color: widget.textAnimatedColor != null
+                                  ? _textColorAnimation.value
+                                  : widget.flutterWebButtonOptions!.textColor !=
+                                          null
+                                      ? widget
+                                          .flutterWebButtonOptions!.textColor!
+                                      : lightColor,
+                              fontSize:
+                                  widget.flutterWebButtonOptions!.fontSize ??
+                                      fallbackFontSize,
+                              fontFamily:
+                                  widget.flutterWebButtonOptions!.fontFamily ??
+                                      ''),
+                        );
+                      }),
                 ),
               ),
             )),
@@ -653,11 +657,38 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         ),
       );
 
+  /// Simple button with grow effect.
+  getButtonGrow() => AnimatedBuilder(
+      animation: _grow,
+      builder: (context, _) {
+        return Transform.scale(
+          scale: _grow.value,
+          child: Container(
+            width:
+                widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
+            height: widget.flutterWebButtonOptions!.buttonHeight!,
+            decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
+                ? null
+                : standardBoxDecoration(),
+            child: Align(
+                alignment: Alignment.center,
+                child: Material(
+                  type: MaterialType.transparency,
+                  textStyle: standardTextStyle(),
+                  child: Text(
+                    widget.text!,
+                  ),
+                )),
+          ),
+        );
+      });
+
   /// Button with icon that fills the backgound
   getButtonHighlightIconFill(IconData icon) => SizedBox(
         width: widget.flutterTextOptions!.fontSize != null
             ? _textSize.width + widget.flutterTextOptions!.fontSize! + 35
             : fallbackFontSize + _textSize.width + 35,
+        height: _textSize.height + 35,
         child: Stack(
           alignment: Alignment.centerLeft,
           children: [
@@ -708,6 +739,23 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
             ),
           ],
         ),
+      );
+
+  getSimpleButton() => Container(
+        width: widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
+        height: widget.flutterWebButtonOptions!.buttonHeight!,
+        decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
+            ? null
+            : standardBoxDecoration(),
+        child: Align(
+            alignment: Alignment.center,
+            child: Material(
+              type: MaterialType.transparency,
+              textStyle: standardTextStyle(),
+              child: Text(
+                widget.text!,
+              ),
+            )),
       );
 
   getTextColorChangeButton() => AnimatedBuilder(
@@ -871,32 +919,6 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               ),
             );
           }));
-
-  /// Simple button with grow effect.
-  getButtonGrow() => AnimatedBuilder(
-      animation: _grow,
-      builder: (context, _) {
-        return Transform.scale(
-          scale: _grow.value,
-          child: Container(
-            width:
-                widget.flutterWebButtonOptions!.buttonWidth ?? double.infinity,
-            height: widget.flutterWebButtonOptions!.buttonHeight!,
-            decoration: widget.flutterWebButtonOptions!.eliminateDecoration!
-                ? null
-                : standardBoxDecoration(),
-            child: Align(
-                alignment: Alignment.center,
-                child: Material(
-                  type: MaterialType.transparency,
-                  textStyle: standardTextStyle(),
-                  child: Text(
-                    widget.text!,
-                  ),
-                )),
-          ),
-        );
-      });
 
   /// Default decorations are used by multiple buttons so these eliminate repeated code.
   standardBoxDecoration() => BoxDecoration(
