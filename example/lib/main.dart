@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     buttonWidth: 200,
                     textColor: const Color(0xFF2A2C2B),
                     buttonBackgroundColor: Colors.transparent,
-                    buttonBorderColor: const Color(0XFF2E7D32), 
+                    buttonBorderColor: const Color(0XFF2E7D32),
                     buttonRadius: 30,
                   ),
                 ),
@@ -144,10 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 FlutterWebButton.textColorChange(
                   'Text Color Change',
                   onPressed: () {},
-                  textAnimatedColor: const Color(0XFF2E7D32),                  
+                  textAnimatedColor: const Color(0XFF2E7D32),
                   flutterWebButtonOptions: FlutterWebButtonOptions(
                     buttonWidth: 200,
-                    eliminateDecoration: true,                    
+                    eliminateDecoration: true,
                     textColor: const Color(0xFF2A2C2B),
                     fontSize: 24,
                   ),
@@ -161,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 FlutterWebButton.textUnderline(
                   'Underline Animation Center',
                   onPressed: () {},
-                  flutterTextOptions: FlutterTextOptions(fontSize: 24),                  
+                  flutterTextOptions: FlutterTextOptions(fontSize: 24),
                   animationCrossAxisAlignment: CrossAxisAlignment.center,
                 ),
                 FlutterWebButton.textMove(
@@ -175,12 +175,24 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FlutterWebButton.buttonHighlightIconFill('Icon With Background Fill',
+                FlutterWebButton.buttonHighlightIconFill(
+                    'Icon With Background Fill',
                     icon: Icons.add,
-                    onPressed: () {},                                        
+                    onPressed: () {},
                     flutterTextOptions: FlutterTextOptions(
-                      fontSize: 20,                      
+                      fontSize: 20,
                     )),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlutterWebButton.textUnderline(
+                  'Underline Animation',
+                  onPressed: () {},
+                  animationDuration: const Duration(milliseconds: 500),
+                  flutterTextOptions: FlutterTextOptions(fontSize: 24),
+                ),
               ],
             ),
           ],
