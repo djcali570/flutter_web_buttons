@@ -56,44 +56,22 @@ FlutterWebButton.textScroll(
 
 ```
 
-```dart
-FlutterWebButton.backgroundFill(
-  'Background Fill',
-  onPressed: () {},
-  flutterWebButtonOptions: FlutterWebButtonOptions(
-    buttonWidth: 200,
-    buttonRadius: 30,
-),
-
-```
-
-```dart
-FlutterWebButton.raiseText(
-  'Raise Text | Shadow',
-  onPressed: () {},
-  flutterWebButtonOptions: FlutterWebButtonOptions(
-    buttonWidth: 200,
-    buttonRadius: 8,
-    boxShadowColor: Colors.grey.withOpacity(0.8),
-  ),
-),
-
-```
 ## Examples
 
 | Button | Animation |
 | --- | ---|
-| BackgroundColorChange | ![textscroll] |
-| BackgroundFill | ![raiseText4] |
-| buttonGrow | Scales the button to a given size |
-| iconGrow | Scales an icon to a given size |
-| raiseText | Transforms button text up |
+| backgroundColorChange | ![bg_color] |
+| backgroundFill | ![bg_fill] |
+| grow | ![button_grow] |
+| iconGrow | ![icon_grow] |
+| textMove | ![move_text] |
 | simple | Simple button with no animation |
 | socialIcon | Social icon with no animation (see list)|
 | socialIconGrow | Scales a social icon to a given size |
 | textColorChange | Animates the text color |
 | textScroll | Animates the text to the top and back into original position |
 | textUnderline | Animates an underline from given position |
+| buttonHighlightIconFill | ![icon_w_bg_fill] |
 
 
 ## Button Customization Properties
@@ -139,4 +117,9 @@ FlutterWebButton.raiseText(
 [textscroll]:https://user-images.githubusercontent.com/60490869/154091366-62667363-d1e3-4abe-a754-4aa5647beef6.gif
 [buy_me_a_coffee_badge]: https://img.buymeacoffee.com/button-api/?text=Buy%20Me%20A%20Coffee&emoji=&slug=djcali570&button_colour=29b6f6&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00
 [buymeacoffee]:https://www.buymeacoffee.com/djcali
-[bgcolorchange]:https://
+[bg_color]:https://user-images.githubusercontent.com/60490869/156978470-06f5eae6-b62a-4d82-a9ea-16fb0df12d46.gif
+[icon_w_bg_fill]:https://user-images.githubusercontent.com/60490869/156976695-20bc5c5f-37ed-4810-900d-5d2784c6cb94.gif
+[bg_fill]:https://user-images.githubusercontent.com/60490869/156979143-0ee5d402-b1d2-4911-b979-c1a7925b6f3e.gif
+[button_grow]:https://user-images.githubusercontent.com/60490869/156979533-d7796263-7a54-440d-95d8-50edb5f0e1d2.gif
+[icon_grow]:https://user-images.githubusercontent.com/60490869/156980305-a8f21f7e-e2b9-4bc3-a1f3-59e2f3db67c5.gif
+[move_text]:https://user-images.githubusercontent.com/60490869/156981057-450e5ee2-bc7c-49ce-a644-30270df06551.gif
