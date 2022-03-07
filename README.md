@@ -68,9 +68,9 @@ FlutterWebButton.textScroll(
 | simple | Simple button with no animation |
 | socialIcon | Social icon with no animation (see list)|
 | socialIconGrow | Scales a social icon to a given size |
-| textColorChange | Animates the text color |
-| textScroll | Animates the text to the top and back into original position |
-| textUnderline | Animates an underline from given position |
+| textColorChange | ![txt_color_change] |
+| textScroll | ![txt_scroll]|
+| textUnderline | ![underline] |
 | buttonHighlightIconFill | ![icon_w_bg_fill] |
 
 
@@ -111,10 +111,9 @@ FlutterWebButton.textScroll(
 | IsHeroWidget |  |
 
 
+
 <!-- Links -->
-[raisetext4]:https://user-images.githubusercontent.com/60490869/154080497-ced74f8d-7093-4352-9f56-2586fcfb8edc.gif
 [backgroundfill]:https://user-images.githubusercontent.com/60490869/154086649-006e9772-d0e3-455f-9403-ffad0b41a658.gif
-[textscroll]:https://user-images.githubusercontent.com/60490869/154091366-62667363-d1e3-4abe-a754-4aa5647beef6.gif
 [buy_me_a_coffee_badge]: https://img.buymeacoffee.com/button-api/?text=Buy%20Me%20A%20Coffee&emoji=&slug=djcali570&button_colour=29b6f6&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00
 [buymeacoffee]:https://www.buymeacoffee.com/djcali
 [bg_color]:https://user-images.githubusercontent.com/60490869/156978470-06f5eae6-b62a-4d82-a9ea-16fb0df12d46.gif
@@ -123,3 +122,6 @@ FlutterWebButton.textScroll(
 [button_grow]:https://user-images.githubusercontent.com/60490869/156979533-d7796263-7a54-440d-95d8-50edb5f0e1d2.gif
 [icon_grow]:https://user-images.githubusercontent.com/60490869/156980305-a8f21f7e-e2b9-4bc3-a1f3-59e2f3db67c5.gif
 [move_text]:https://user-images.githubusercontent.com/60490869/156981057-450e5ee2-bc7c-49ce-a644-30270df06551.gif
+[txt_color_change]:https://user-images.githubusercontent.com/60490869/157051127-4e7ad83b-611b-407f-b0d7-073d6a039cf5.gif
+[txt_scroll]:https://user-images.githubusercontent.com/60490869/157052261-88e09546-7647-4928-a70f-b8bce73449ea.gif
+[underline]:https://user-images.githubusercontent.com/60490869/157053576-3e10dcad-d775-4104-9e30-157f34bfdeb8.gif
