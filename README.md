@@ -81,25 +81,10 @@ FlutterWebButton.raiseText(
 ```
 ## Examples
 
-
-### Text Scroll
-
-![textscroll][textscroll]
-
-### Background Fill
-
-![backgroundfill][backgroundfill]
-
-### Raise Text
-
-![raisetext4][raisetext4]
-
-## Current Button List
-
 | Button | Animation |
 | --- | ---|
-| BackgroundColorChange | Animates background color |
-| BackgroundFill | Fills the button with color from left to right |
+| BackgroundColorChange | ![textscroll] |
+| BackgroundFill | ![raiseText4] |
 | buttonGrow | Scales the button to a given size |
 | iconGrow | Scales an icon to a given size |
 | raiseText | Transforms button text up |
@@ -154,3 +139,4 @@ FlutterWebButton.raiseText(
 [textscroll]:https://user-images.githubusercontent.com/60490869/154091366-62667363-d1e3-4abe-a754-4aa5647beef6.gif
 [buy_me_a_coffee_badge]: https://img.buymeacoffee.com/button-api/?text=Buy%20Me%20A%20Coffee&emoji=&slug=djcali570&button_colour=29b6f6&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00
 [buymeacoffee]:https://www.buymeacoffee.com/djcali
+[bgcolorchange]:https://
