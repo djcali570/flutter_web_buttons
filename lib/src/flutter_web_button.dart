@@ -49,7 +49,7 @@ class FlutterWebButton extends StatefulWidget {
   FlutterWebButtonSocialIcon? flutterWebButtonSocialIcon;
 
   /// Using a separate constructor for properties that are not required to display the icon button.
-  FlutterWebIconOptions? flutterWebIconButtonOptions;
+  FlutterWebIconOptions? flutterWebIconOptions;
 
   /// Using a separate constructor for text only properties that are not required to display the text.
   FlutterTextOptions? flutterTextOptions;
@@ -114,7 +114,7 @@ class FlutterWebButton extends StatefulWidget {
     Key? key,
     required this.icon,
     required this.onPressed,
-    required this.flutterWebIconButtonOptions,
+    required this.flutterWebIconOptions,
     this.animationDuration,
     this.growAmount = 1.05,
   })  : _buttonType = FlutterWebButtonList.iconGrow,
@@ -149,7 +149,7 @@ class FlutterWebButton extends StatefulWidget {
     Key? key,
     required this.icon,
     required this.onPressed,
-    required this.flutterWebIconButtonOptions,
+    required this.flutterWebIconOptions,
   })  : _buttonType = FlutterWebButtonList.simpleIcon,
         super(key: key);
 
@@ -158,7 +158,7 @@ class FlutterWebButton extends StatefulWidget {
     Key? key,
     required this.flutterWebButtonSocialIcon,
     required this.onPressed,
-    required this.flutterWebIconButtonOptions,
+    required this.flutterWebIconOptions,
     this.animationDuration,
   })  : _buttonType = FlutterWebButtonList.socialIcon,
         super(key: key);
@@ -168,7 +168,7 @@ class FlutterWebButton extends StatefulWidget {
     Key? key,
     required this.flutterWebButtonSocialIcon,
     required this.onPressed,
-    required this.flutterWebIconButtonOptions,
+    required this.flutterWebIconOptions,
     this.animationDuration,
     this.growAmount = 1.1,
   })  : _buttonType = FlutterWebButtonList.socialIconGrow,
@@ -407,8 +407,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
     return Padding(
       padding: widget.flutterWebButtonOptions != null
           ? widget.flutterWebButtonOptions!.buttonPadding!
-          : widget.flutterWebIconButtonOptions != null
-              ? widget.flutterWebIconButtonOptions!.padding!
+          : widget.flutterWebIconOptions != null
+              ? widget.flutterWebIconOptions!.padding!
               : widget.flutterTextOptions != null
                   ? widget.flutterTextOptions!.padding!
                   : EdgeInsets.zero,
@@ -441,10 +441,10 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                       tag: widget.flutterWebButtonOptions!.heroTag!,
                       child: getButton())
                   : getButton()
-              : (widget.flutterWebIconButtonOptions != null)
-                  ? (widget.flutterWebIconButtonOptions!.isHeroWidget!)
+              : (widget.flutterWebIconOptions != null)
+                  ? (widget.flutterWebIconOptions!.isHeroWidget!)
                       ? Hero(
-                          tag: widget.flutterWebIconButtonOptions!.heroTag!,
+                          tag: widget.flutterWebIconOptions!.heroTag!,
                           child: getButton())
                       : getButton()
                   : (widget.flutterTextOptions != null)
@@ -900,8 +900,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   getSimpleIconButton(IconData icon) => SizedBox(
         child: Icon(
           icon,
-          color: widget.flutterWebIconButtonOptions!.color ?? darkColor,
-          size: widget.flutterWebIconButtonOptions!.size ?? 32,
+          color: widget.flutterWebIconOptions!.color ?? darkColor,
+          size: widget.flutterWebIconOptions!.size ?? 32,
         ),
       );
 
@@ -914,8 +914,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               scale: _grow.value,
               child: Icon(
                 icon,
-                color: widget.flutterWebIconButtonOptions!.color ?? darkColor,
-                size: widget.flutterWebIconButtonOptions!.size ?? 32,
+                color: widget.flutterWebIconOptions!.color ?? darkColor,
+                size: widget.flutterWebIconOptions!.size ?? 32,
               ),
             );
           }));

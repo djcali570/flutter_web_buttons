@@ -114,26 +114,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 FlutterWebButton.simpleIcon(
                   icon: Icons.menu,
                   onPressed: () {},
-                  flutterWebIconButtonOptions:
+                  flutterWebIconOptions:
                       FlutterWebIconOptions(color: Colors.black),
                 ),
                 FlutterWebButton.socialIcon(
                   flutterWebButtonSocialIcon:
                       FlutterWebButtonSocialIcon.instagram,
                   onPressed: () {},
-                  flutterWebIconButtonOptions:
+                  flutterWebIconOptions:
                       FlutterWebIconOptions(color: Colors.pink),
                 ),
                 FlutterWebButton.socialIconGrow(
                   flutterWebButtonSocialIcon: FlutterWebButtonSocialIcon.github,
                   onPressed: () {},
-                  flutterWebIconButtonOptions: FlutterWebIconOptions(),
+                  flutterWebIconOptions: FlutterWebIconOptions(),
                 ),
                 FlutterWebButton.iconGrow(
                   icon: Icons.favorite,
                   onPressed: () {},
                   growAmount: 2,
-                  flutterWebIconButtonOptions:
+                  flutterWebIconOptions:
                       FlutterWebIconOptions(color: Colors.red),
                 ),
               ],
