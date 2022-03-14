@@ -1,3 +1,7 @@
+## 0.0.7
+
+* Renamed FlutterWebIconButtonOptions to FlutterWebIconOptions to be consistant.
+
 ## 0.0.6
 
 * Added Highlight Icon Fill button
