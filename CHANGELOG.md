@@ -1,3 +1,7 @@
+## 0.0.8
+
+* Added Text Only Color Change Button
+
 ## 0.0.7
 
 * Renamed FlutterWebIconButtonOptions to FlutterWebIconOptions to be consistant.
