@@ -199,6 +199,17 @@ class FlutterWebButton extends StatefulWidget {
   })  : _buttonType = FlutterWebButtonList.textMove,
         super(key: key);
 
+  /// Animates the text color only.
+  FlutterWebButton.textOnlyColorChange(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.flutterTextOptions,
+    this.textAnimatedColor,
+    this.animationDuration,
+  })  : _buttonType = FlutterWebButtonList.textOnlyColorChange,
+        super(key: key);
+
   /// The text will scroll to the top and fade out and reappear from the bottom back into position.
   FlutterWebButton.textScroll(
     this.text, {
@@ -520,6 +531,14 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         return getBackgroundColorChangeButton();
       case FlutterWebButtonList.textColorChange:
         return getTextColorChangeButton();
+      case FlutterWebButtonList.textOnlyColorChange:
+        setState(() {
+          _textColorAnimation = ColorTween(
+                  begin: widget.flutterTextOptions!.textColor ?? textColor,
+                  end: widget.textAnimatedColor ?? darkTextColor)
+              .animate(_curvedCircAnimation);
+        });
+        return getTextOnlyColorChangeButton();
       case FlutterWebButtonList.iconGrow:
         return getIconGrow(widget.icon!);
       case FlutterWebButtonList.raiseText:
@@ -782,6 +801,24 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                     widget.text!,
                   ),
                 ),
+              ),
+            )),
+      );
+
+  getTextOnlyColorChangeButton() => AnimatedBuilder(
+        animation: _textColorAnimation,
+        builder: ((context, child) => Material(
+              type: MaterialType.transparency,
+              textStyle: TextStyle(
+                color: _textColorAnimation.value,
+                fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
+                fontSize: widget.flutterTextOptions!.fontSize ??
+                    fallbackFontSize,
+                letterSpacing:
+                    widget.flutterTextOptions!.letterSpacing ?? 0,
+              ),
+              child: Text(
+                widget.text!,
               ),
             )),
       );
