@@ -27,6 +27,9 @@ class FlutterWebButton extends StatefulWidget {
   /// Used to set the background color for the animation.
   Color? backgroundAnimatedColor;
 
+  /// Used to set the background color for the container.
+  Color? backgroundColor;
+
   /// Used to set the text color for the animation.
   Color? textAnimatedColor;
 
@@ -45,6 +48,12 @@ class FlutterWebButton extends StatefulWidget {
   /// Used to set distance the animation moves in the x direction.
   double? moveDistanceY;
 
+  /// Used to width of container.
+  double? width;
+
+  /// Used to height of container.
+  double? height;
+
   /// Used to show a list of enums containing built in social icons.
   FlutterWebButtonSocialIcon? flutterWebButtonSocialIcon;
 
@@ -58,6 +67,18 @@ class FlutterWebButton extends StatefulWidget {
   CrossAxisAlignment? animationCrossAxisAlignment;
 
   /// Button Constructors
+
+  /// A simple account button witch displays a letter.
+  FlutterWebButton.accountInitial(
+    this.text, {
+    Key? key,
+    required this.onPressed,
+    required this.flutterTextOptions,
+    this.backgroundColor,
+    this.width,
+    this.height,
+  })  : _buttonType = FlutterWebButtonList.accountInitial,
+        super(key: key);
 
   /// Animates the background color only.
   FlutterWebButton.backgroundColorChange(
@@ -481,6 +502,10 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   getButton() {
     switch (widget._buttonType) {
 
+      /// Return the Account Button
+      case FlutterWebButtonList.accountInitial:
+        return getAccountInitialButton();
+
       /// Return the background fill button.
       case FlutterWebButtonList.backgroundFill:
 
@@ -568,6 +593,21 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
   }
 
   /// Button methods that get returned to the gesture detector.
+
+  getAccountInitialButton() => Container(
+        width: widget.width ?? 40,
+        height: widget.height ?? 40,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: widget.backgroundColor ?? Colors.white,
+        ),
+        child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              widget.text ?? '',
+              style: textOnlyTextStyle(),
+            )),
+      );
 
   getBackgroundColorChangeButton() => AnimatedBuilder(
         animation: _backgroundColorAnimation,
@@ -812,10 +852,9 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               textStyle: TextStyle(
                 color: _textColorAnimation.value,
                 fontFamily: widget.flutterTextOptions!.fontFamily ?? '',
-                fontSize: widget.flutterTextOptions!.fontSize ??
-                    fallbackFontSize,
-                letterSpacing:
-                    widget.flutterTextOptions!.letterSpacing ?? 0,
+                fontSize:
+                    widget.flutterTextOptions!.fontSize ?? fallbackFontSize,
+                letterSpacing: widget.flutterTextOptions!.letterSpacing ?? 0,
               ),
               child: Text(
                 widget.text!,
@@ -981,6 +1020,9 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
                   offset: widget.flutterWebButtonOptions!.boxShadowOffset,
                 )
               ]
+            : null,
+        gradient: widget.flutterWebButtonOptions!.gradient != null
+            ? (widget.flutterWebButtonOptions!.gradient)
             : null,
       );
 
