@@ -7,6 +7,7 @@ class FlutterWebButtonOptions {
   /// Height of the button. Default value of 50.
   double? buttonHeight;
   Color? buttonBackgroundColor;
+  LinearGradient? gradient;
   Color? textColor;
   double? fontSize;
   String? fontFamily;
@@ -27,6 +28,7 @@ class FlutterWebButtonOptions {
     this.buttonWidth,
     this.buttonHeight = 50,
     this.buttonBackgroundColor,
+    this.gradient,
     this.textColor,
     this.fontSize,
     this.fontFamily,
