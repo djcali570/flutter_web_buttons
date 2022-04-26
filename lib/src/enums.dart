@@ -1,4 +1,5 @@
 enum FlutterWebButtonList {
+  accountInitial,
   backgroundColorChange,
   backgroundFill,
   buttonGrow,
