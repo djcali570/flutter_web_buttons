@@ -1,3 +1,8 @@
+## 0.0.9
+
+* Added Account Initial Button
+* Added gradient option
+
 ## 0.0.8
 
 * Added Text Only Color Change Button
