@@ -1,6 +1,6 @@
 ## 0.0.9
 
-* Added Account Initial Button
+* Added Circle button
 * Added gradient option
 
 ## 0.0.8
