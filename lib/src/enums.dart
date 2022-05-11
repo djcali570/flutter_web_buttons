@@ -1,9 +1,9 @@
 enum FlutterWebButtonList {
-  accountInitial,
   backgroundColorChange,
   backgroundFill,
   buttonGrow,
   buttonHighlightIconFill,
+  circle,
   iconGrow,
   raiseText,
   simple,
