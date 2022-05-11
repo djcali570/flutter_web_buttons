@@ -6,6 +6,9 @@ import 'package:flutter_web_buttons/src/enums.dart';
 
 // ignore: must_be_immutable
 class FlutterWebButton extends StatefulWidget {
+  /// Child for buttons with custom widget inside.
+  Widget? child;
+
   /// Required callback used on button pressed.
   VoidCallback? onPressed;
 
@@ -14,6 +17,9 @@ class FlutterWebButton extends StatefulWidget {
 
   /// Icon used for custom icon animations.
   IconData? icon;
+
+  /// Gradient option for background coloring.
+  LinearGradient? gradient;
 
   /// Icon color used for custom icon animations.
   Color? iconColor;
@@ -69,15 +75,15 @@ class FlutterWebButton extends StatefulWidget {
   /// Button Constructors
 
   /// A simple account button witch displays a letter.
-  FlutterWebButton.accountInitial(
-    this.text, {
+  FlutterWebButton.circle({
     Key? key,
-    required this.onPressed,
-    required this.flutterTextOptions,
+    required this.onPressed,    
+    required this.child,
     this.backgroundColor,
+    this.gradient,
     this.width,
     this.height,
-  })  : _buttonType = FlutterWebButtonList.accountInitial,
+  })  : _buttonType = FlutterWebButtonList.circle,
         super(key: key);
 
   /// Animates the background color only.
@@ -503,8 +509,8 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
     switch (widget._buttonType) {
 
       /// Return the Account Button
-      case FlutterWebButtonList.accountInitial:
-        return getAccountInitialButton();
+      case FlutterWebButtonList.circle:
+        return getCircleButton();
 
       /// Return the background fill button.
       case FlutterWebButtonList.backgroundFill:
@@ -594,19 +600,17 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
   /// Button methods that get returned to the gesture detector.
 
-  getAccountInitialButton() => Container(
+  getCircleButton() => Container(
         width: widget.width ?? 40,
         height: widget.height ?? 40,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: widget.backgroundColor ?? Colors.white,
+          gradient: widget.gradient != null
+              ? (widget.gradient)
+              : null,
         ),
-        child: Align(
-            alignment: Alignment.center,
-            child: Text(
-              widget.text ?? '',
-              style: textOnlyTextStyle(),
-            )),
+        child: Align(alignment: Alignment.center, child: widget.child),
       );
 
   getBackgroundColorChangeButton() => AnimatedBuilder(
