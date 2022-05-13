@@ -15,6 +15,7 @@ enum FlutterWebButtonList {
   textOnlyColorChange,
   textScroll,
   textUnderline,
+  widgetButton,
 }
 
 enum FlutterWebButtonSocialIcon {
