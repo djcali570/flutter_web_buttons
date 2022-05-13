@@ -137,12 +137,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       FlutterWebIconOptions(color: Colors.red),
                 ),
                 FlutterWebButton.circle(
-                    onPressed: () {},
-                    gradient: const LinearGradient(
-                        colors: [Colors.pink, Colors.blue],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight),
-                    child: const Icon(Icons.favorite))
+                  onPressed: () {},
+                  gradient: const LinearGradient(
+                      colors: [Colors.pink, Colors.blue],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight),
+                  child: const Icon(Icons.favorite),
+                ),
+                FlutterWebButton.widgetButton(
+                    onPressed: () {
+                      debugPrint('Widget Button Pressed.');
+                    },
+                    child: const Icon(Icons.widgets))
               ],
             ),
             Row(
