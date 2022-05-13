@@ -77,7 +77,7 @@ class FlutterWebButton extends StatefulWidget {
   /// A simple account button witch displays a letter.
   FlutterWebButton.circle({
     Key? key,
-    required this.onPressed,    
+    required this.onPressed,
     required this.child,
     this.backgroundColor,
     this.gradient,
@@ -259,6 +259,14 @@ class FlutterWebButton extends StatefulWidget {
     this.lineThickness = 2,
     this.lineSpacing = 0,
   })  : _buttonType = FlutterWebButtonList.textUnderline,
+        super(key: key);
+
+  /// Simple button with child widget.
+  FlutterWebButton.widgetButton({
+    Key? key,
+    required this.onPressed,
+    required this.child,
+  })  : _buttonType = FlutterWebButtonList.widgetButton,
         super(key: key);
 
   /// Button Type variable thats gets assigned in the constructor.
@@ -593,6 +601,10 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
 
         /// Get the button
         return getTextUnderlineButton();
+
+      case FlutterWebButtonList.widgetButton:
+        return getWidgetButton();
+
       default:
         return const SizedBox();
     }
@@ -606,9 +618,7 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: widget.backgroundColor ?? Colors.white,
-          gradient: widget.gradient != null
-              ? (widget.gradient)
-              : null,
+          gradient: widget.gradient != null ? (widget.gradient) : null,
         ),
         child: Align(alignment: Alignment.center, child: widget.child),
       );
@@ -999,6 +1009,12 @@ class _FlutterWebButtonState extends State<FlutterWebButton>
               ),
             );
           }));
+
+  getWidgetButton() => SizedBox(
+        width: widget.width ?? 40,
+        height: widget.height ?? 40,
+        child: Align(alignment: Alignment.center, child: widget.child),
+      );
 
   /// Default decorations are used by multiple buttons so these eliminate repeated code.
   standardBoxDecoration() => BoxDecoration(
