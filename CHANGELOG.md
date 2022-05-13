@@ -1,6 +1,7 @@
 ## 0.0.9
 
-* Added Circle button
+* Added widget button
+* Added circle button
 * Added gradient option
 
 ## 0.0.8
